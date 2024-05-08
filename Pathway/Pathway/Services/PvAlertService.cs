@@ -6,6 +6,9 @@ using Pathway.Core.Abstract;
 using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway.Server;
+using Pathway.Core.Abstract.Services;
+using Pathway.Core.Abstract.Repositories;
+using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services
 {
@@ -120,7 +123,7 @@ namespace Pathway.Core.Services
         public Dictionary<string, AlertView> GetLastIntervalAlertFor(List<string> alertList, DateTime fromTimestamp, DateTime toTimestamp)
         {
             //1. Go to PvCollects and get interval.
-            IPvCollectService collectService = new PvCollectService(_connectionString);
+            IPvCollectsService collectService = new PvCollectsService();
             var intervalInSec = collectService.GetIntervalFor(fromTimestamp, toTimestamp);
 
             //2. using ToTimestamp, get last interval.
@@ -139,7 +142,7 @@ namespace Pathway.Core.Services
 
 
 
-            IPvPwyList pwyList = new PvPwyList(_connectionString);
+            IPvPwyListRepository pwyList = new PvPwyListRepository();
             var pwyLists = pwyList.GetPathwayNames(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
             foreach (var pathway in pwyLists)
             {
@@ -170,7 +173,7 @@ namespace Pathway.Core.Services
 
             if (pathwayName.Length == 0)
             {
-                IPvPwyList pwyList = new PvPwyList(_connectionString);
+                IPvPwyListRepository pwyList = new PvPwyListRepository();
                 var pwyLists = pwyList.GetPathwayNames(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
                 foreach (var pathway in pwyLists)
                 {

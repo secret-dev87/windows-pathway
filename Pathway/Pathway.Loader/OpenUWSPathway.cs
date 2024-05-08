@@ -10,6 +10,7 @@ using Pathway.Core.Infrastructure;
 using Pathway.Core.Services;
 using Pathway.Loader.Infrastructure;
 using Pathway.Core.RemoteAnalyst.Concrete;
+using Pathway.Core.Abstract.Services;
 using log4net;
 
 namespace Pathway.Loader {
@@ -626,7 +627,7 @@ namespace Pathway.Loader {
                                                             collectionInfo.FromTimestamp, collectionInfo.ToTimestamp);
                                                         
                                                         //Check duplicated data.
-                                                        IPvCollectService collects = new PvCollectService(_connectionStringSystem);
+                                                        IPvCollectsService collects = new PvCollectsService();
                                                         bool isDuplicated = collects.IsDuplictedFor(collectionInfo.FromTimestamp, collectionInfo.ToTimestamp);
 
                                                         if (isDuplicated) {
@@ -991,7 +992,7 @@ namespace Pathway.Loader {
 
         private CollectionInfo InsertAlert(CollectionInfo collectionInfo) {
             //Insert Alerts.
-            IPvPwyListService pvPwyList = new PvPwyListService(_connectionStringSystem);
+            IPvPwyListService pvPwyList = new PvPwyListService();
             List<string> pathwayList = pvPwyList.GetPathwayNamesFor(collectionInfo.FromTimestamp, collectionInfo.ToTimestamp);
 
             //For each Pathway Name, Loop throuth the From and To Timestamp using Interval and insert empty data.
@@ -1055,7 +1056,7 @@ namespace Pathway.Loader {
             IAllPathwayService service = new AllPathwayService(_connectionStringSystem, intervalInSec);
             var summary = service.GetCPUSummaryFor(collectionInfo.FromTimestamp, collectionInfo.ToTimestamp, UWSSerialNumber);
 
-            ICPUBusyService cpuBusyService = new CPUBusyService(_connectionStringSystem);
+            IPvCPUBusyService cpuBusyService = new PvCPUBusyService();
             var items = summary.AllPathways.OrderByDescending(x => x.Value).ToList();
             foreach (var view in items) {
                 cpuBusyService.InsertCPUBusyFor(view.Key,

@@ -4,10 +4,12 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Repositories;
 using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway;
 using Pathway.Core.RemoteAnalyst.Concrete;
+using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {
     public class PerPathwayService : IPerPathwayService {
@@ -22,8 +24,8 @@ namespace Pathway.Core.Services {
         public Dictionary<string, CPUDetailView> GetCPUBusyDetailFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, int ipu, string systemSerial) {
             var cpuBusyDetail = new Dictionary<string, CPUDetailView>();
 
-            IPvCPUMany cpuMany = new PvCPUMany(_connectionString);
-            IPvPwyMany pwyMany = new PvPwyMany(_connectionString);
+            IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
+            IPvPwyManyRepository pwyMany = new PvPwyManyRepository();
             IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
             IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
 
@@ -74,8 +76,8 @@ namespace Pathway.Core.Services {
         }
 
         public CPUSummaryView GetCPUSummaryFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, string systemSerial) {
-            IPvCPUMany cpuMany = new PvCPUMany(_connectionString);
-            IPvPwyMany pwyMany = new PvPwyMany(_connectionString);
+            IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
+            IPvPwyManyRepository pwyMany = new PvPwyManyRepository();
             IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
             IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
 
@@ -104,8 +106,8 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, CPUSummaryView> GetIntervalCPUSummaryFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, string systemSerial) {
-            IPvCPUMany cpuMany = new PvCPUMany(_connectionString);
-            IPvPwyMany pwyMany = new PvPwyMany(_connectionString);
+            IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
+            IPvPwyManyRepository pwyMany = new PvPwyManyRepository();
             IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
             IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
 

@@ -4,11 +4,13 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Repositories;
 using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway.Server;
 using Pathway.Core.Infrastructure.PerPathway.Tcp;
 using Pathway.Core.Infrastructure.PerPathway.Term;
+using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {
     public class PerPathwayTcpService : IPerPathwayTcpService {
@@ -22,7 +24,7 @@ namespace Pathway.Core.Services {
 
         public List<TcpTransactionView> GetTcpTransactionFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName) {
             IPvTcpInfo tcpinfo = new PvTcpInfo(_connectionString);
-            IPvCPUMany cpuMany = new PvCPUMany(_connectionString);
+            IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
 
             double cpuElapse = cpuMany.GetCPUElapse(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)),
                 toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
