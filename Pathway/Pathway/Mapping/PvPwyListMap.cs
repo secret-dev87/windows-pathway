@@ -17,7 +17,7 @@ namespace Pathway.Core.Mapping
                 .KeyProperty(x => x.FromTimestamp, "FromTimestamp")
                 .KeyProperty(x => x.ToTimestamp, "ToTimestamp")
                 .KeyProperty(x => x.PathwayName, "PathwayName");
-            Map(x => x.PFiller);
+            Map(x => x.PFiller).Length(1);
             Map(x => x.StartTime);
             Map(x => x.LastTime);
         }

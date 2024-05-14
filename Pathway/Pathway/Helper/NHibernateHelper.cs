@@ -7,9 +7,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using Pathway.Core.Entity;
 using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
-using Pathway.Core.Mapping;
 
 namespace Pathway.Core.Helper
 {
@@ -28,8 +26,10 @@ namespace Pathway.Core.Helper
                     configuration.Configure("main.hibernate.cfg.xml");
 
                     Fluently.Configure(configuration)
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PathwayAlertsEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PathwayAllAlertsEntity>())
+                        .Mappings(m => {
+                            m.FluentMappings.AddFromAssemblyOf<PathwayAlertsEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PathwayAllAlertsEntity>();
+                        })
                         .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, false));
 
                     _mainSessionFactory = configuration.BuildSessionFactory();
@@ -47,50 +47,30 @@ namespace Pathway.Core.Helper
                     var configuration = new Configuration();
                     configuration.Configure("system.hibernate.cfg.xml");
 
-                    Fluently.Configure(configuration)
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvAlertEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvCollectEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvCPUBusyEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvCPUManyEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvErrorEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvPwyListEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvPwyManyEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvScInfoEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvScLStatEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvScPrStusEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvScStusEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvScTStatEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvTcpInfoEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvTcpStatEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvTcpStusEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvTermStatEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PvTermStusEntity>())
-                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<TrendPathwayHourlyEntity>())
-                        .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, false));
-
-                    /*var configuration = new Configuration();
-                    configuration.Configure("system.hibernate.cfg.xml");
-                    configuration
-                        .AddAssembly(typeof(PvAlertEntity).Assembly)
-                        .AddAssembly(typeof(PvCollectEntity).Assembly)
-                        .AddAssembly(typeof(PvCPUBusyEntity).Assembly)
-                        .AddAssembly(typeof(PvCPUManyEntity).Assembly)
-                        .AddAssembly(typeof(PvErrorEntity).Assembly)
-                        .AddAssembly(typeof(PvPwyListEntity).Assembly)
-                        .AddAssembly(typeof(PvPwyManyEntity).Assembly)
-                        .AddAssembly(typeof(PvScInfoEntity).Assembly)
-                        .AddAssembly(typeof(PvScLStatEntity).Assembly)
-                        .AddAssembly(typeof(PvScPrStusEntity).Assembly)
-                        .AddAssembly(typeof(PvScStusEntity).Assembly)
-                        .AddAssembly(typeof(PvScTStatEntity).Assembly)
-                        .AddAssembly(typeof(PvTcpInfoEntity).Assembly)
-                        .AddAssembly(typeof(PvTcpStatEntity).Assembly)
-                        .AddAssembly(typeof(PvTcpStusEntity).Assembly)
-                        .AddAssembly(typeof(PvTermStatEntity).Assembly)
-                        .AddAssembly(typeof(PvTermStusEntity).Assembly)
-                        .AddAssembly(typeof(TrendPathwayHourlyEntity).Assembly);*/
-
-                    _systemSessionFactory = configuration.BuildSessionFactory();
+                    _systemSessionFactory = Fluently.Configure(configuration)
+                        .Mappings(m =>
+                        {
+                            m.FluentMappings.AddFromAssemblyOf<PvAlertEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvCollectEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvCPUBusyEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvCPUManyEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvErrorEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvPwyListEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvPwyManyEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvScInfoEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvScLStatEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvScPrStusEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvScStusEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvScTStatEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvTcpInfoEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvTcpStatEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvTcpStusEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvTermStatEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvTermStusEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<TrendPathwayHourlyEntity>();
+                        })
+                        .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, false))
+                        .BuildSessionFactory();
                 }
                 return _systemSessionFactory;
             }
