@@ -44,26 +44,56 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.19.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.19.4\lib\net45\Google.Protobuf.dll</HintPath>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.2.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="K4os.Compression.LZ4, Version=1.2.6.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Compression.LZ4.1.2.6\lib\net46\K4os.Compression.LZ4.dll</HintPath>
+    <Reference Include="FluentNHibernate, Version=3.3.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.3.3.0\lib\net461\FluentNHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.2.6.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.2.6\lib\net46\K4os.Compression.LZ4.Streams.dll</HintPath>
+    <Reference Include="Google.Protobuf, Version=3.25.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.25.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
-    <Reference Include="K4os.Hash.xxHash, Version=1.0.6.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net46\K4os.Hash.xxHash.dll</HintPath>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4, Version=1.3.5.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.1.3.5\lib\net462\K4os.Compression.LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.3.5.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.3.5\lib\net462\K4os.Compression.LZ4.Streams.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Hash.xxHash, Version=1.0.8.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Hash.xxHash.1.0.8\lib\net462\K4os.Hash.xxHash.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.4.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.4.0\lib\net462\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="MySqlConnector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92, processorArchitecture=MSIL">
       <HintPath>..\packages\MySqlConnector.2.2.5\lib\net471\MySqlConnector.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=5.5.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.5.5.1\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -72,10 +102,16 @@
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.4.4.1\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.6.0.0\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=7.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.7.0.2\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.5.0.2\lib\net461\System.IO.Pipelines.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -88,6 +124,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -101,48 +138,57 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ZstdSharp, Version=0.7.1.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZstdSharp.Port.0.7.1\lib\net461\ZstdSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\ITrendPathwayHourly.cs" />
-    <Compile Include="Abstract\IPvScLStat.cs" />
-    <Compile Include="Abstract\IPvTcpInfo.cs" />
+    <Compile Include="Abstract\Repositories\IPathwayAlertsRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvAlertsRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvCollectsRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvCPUBusiesRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvCPUManyRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvErrorsRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvPwyListRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvPwyManyRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvScInfoRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvScLStatRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvScPrStusRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvScStusRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvScTStatRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvTcpInfoRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvTcpStusRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPvTermStatRepository.cs" />
+    <Compile Include="Abstract\Repositories\ITrendPathwayHourlyRepository.cs" />
+    <Compile Include="Abstract\Services\IPvCollectsService.cs" />
+    <Compile Include="Abstract\Services\IPvCPUBusyService.cs" />
     <Compile Include="Concrete\DataDictionary.cs" />
     <Compile Include="Abstract\IDataDictionary.cs" />
     <Compile Include="Concrete\DataTables.cs" />
     <Compile Include="Abstract\IDataTables.cs" />
-    <Compile Include="Abstract\IPvPwyList.cs" />
-    <Compile Include="Abstract\IPvCollects.cs" />
-    <Compile Include="Abstract\IPvAlerts.cs" />
-    <Compile Include="Abstract\IPvCPUMany.cs" />
-    <Compile Include="Abstract\IPvPwyMany.cs" />
-    <Compile Include="Abstract\IPvScInfo.cs" />
-    <Compile Include="Abstract\IPvScPrStus.cs" />
-    <Compile Include="Abstract\IPvScTStat.cs" />
-    <Compile Include="Abstract\IPvTcpStus.cs" />
-    <Compile Include="Abstract\IPvTermStat.cs" />
-    <Compile Include="Abstract\IPathwayAlerts.cs" />
-    <Compile Include="Abstract\IPvScStus.cs" />
-    <Compile Include="Abstract\IPvCPUBusies.cs" />
-    <Compile Include="Abstract\IPvErrors.cs" />
     <Compile Include="Concrete\DeleteHelper.cs" />
     <Compile Include="Concrete\MySQLHelper.cs" />
-    <Compile Include="Concrete\PathwayAlerts.cs" />
-    <Compile Include="Concrete\PvAlerts.cs" />
-    <Compile Include="Concrete\PvCollects.cs" />
-    <Compile Include="Concrete\PvCPUBusies.cs" />
-    <Compile Include="Concrete\PvCPUMany.cs" />
-    <Compile Include="Concrete\PvErrors.cs" />
-    <Compile Include="Concrete\PvPwyList.cs" />
-    <Compile Include="Concrete\PvPwyMany.cs" />
-    <Compile Include="Concrete\PvScInfo.cs" />
-    <Compile Include="Concrete\PvScLStat.cs" />
-    <Compile Include="Concrete\PvScPrStus.cs" />
-    <Compile Include="Concrete\PvScStus.cs" />
-    <Compile Include="Concrete\PvScTStat.cs" />
-    <Compile Include="Concrete\PvTcpInfo.cs" />
-    <Compile Include="Concrete\PvTcpStus.cs" />
-    <Compile Include="Concrete\PvTermStat.cs" />
-    <Compile Include="Concrete\TrendPathwayHourly.cs" />
+    <Compile Include="Entity\PathwayAlertsEntity.cs" />
+    <Compile Include="Entity\PathwayAllAlertsEntity.cs" />
+    <Compile Include="Entity\PvAlertEntity.cs" />
+    <Compile Include="Entity\PvCollectEntity.cs" />
+    <Compile Include="Entity\PvCPUBusyEntity.cs" />
+    <Compile Include="Entity\PvCPUManyEntity.cs" />
+    <Compile Include="Entity\PvErrorEntity.cs" />
+    <Compile Include="Entity\PvPwyListEntity.cs" />
+    <Compile Include="Entity\PvPwyManyEntity.cs" />
+    <Compile Include="Entity\PvScInfoEntity.cs" />
+    <Compile Include="Entity\PvScLStatEntity.cs" />
+    <Compile Include="Entity\PvScPrStusEntity.cs" />
+    <Compile Include="Entity\PvScStusEntity.cs" />
+    <Compile Include="Entity\PvScTStatEntity.cs" />
+    <Compile Include="Entity\PvTcpInfoEntity.cs" />
+    <Compile Include="Entity\PvTcpStatEntity.cs" />
+    <Compile Include="Entity\PvTcpStusEntity.cs" />
+    <Compile Include="Entity\PvTermStatEntity.cs" />
+    <Compile Include="Entity\PvTermStusEntity.cs" />
+    <Compile Include="Entity\TrendPathwayHourlyEntity.cs" />
+    <Compile Include="Helper\NHibernateHelper.cs" />
     <Compile Include="Infrastructure\Alert.cs" />
     <Compile Include="Infrastructure\AlertView.cs" />
     <Compile Include="Infrastructure\AllPathway\CPUDetailView.cs" />
@@ -181,27 +227,61 @@
     <Compile Include="Infrastructure\PvPwyManyView.cs" />
     <Compile Include="Infrastructure\TcpToServer.cs" />
     <Compile Include="Infrastructure\UnusedServerProcesses.cs" />
+    <Compile Include="Mapping\PathwayAlertsMap.cs" />
+    <Compile Include="Mapping\PathwayAllAlertsMap.cs" />
+    <Compile Include="Mapping\PvAlertMap.cs" />
+    <Compile Include="Mapping\PvCollectMap.cs" />
+    <Compile Include="Mapping\PvCPUBusyMap.cs" />
+    <Compile Include="Mapping\PvCPUManyMap.cs" />
+    <Compile Include="Mapping\PvErrorMap.cs" />
+    <Compile Include="Mapping\PvPwyListMap.cs" />
+    <Compile Include="Mapping\PvPwyManyMap.cs" />
+    <Compile Include="Mapping\PvScInfoMap.cs" />
+    <Compile Include="Mapping\PvScLStatMap.cs" />
+    <Compile Include="Mapping\PvScPrStusMap.cs" />
+    <Compile Include="Mapping\PvScStusMap.cs" />
+    <Compile Include="Mapping\PvScTStatMap.cs" />
+    <Compile Include="Mapping\PvTcpInfoMap.cs" />
+    <Compile Include="Mapping\PvTcpStatMap.cs" />
+    <Compile Include="Mapping\PvTcpStusMap.cs" />
+    <Compile Include="Mapping\PvTermStatMap.cs" />
+    <Compile Include="Mapping\PvTermStusMap.cs" />
+    <Compile Include="Mapping\TrendPathwayHourlyMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteAnalyst\Concrete\CPU.cs" />
     <Compile Include="RemoteAnalyst\Concrete\Process.cs" />
     <Compile Include="RemoteAnalyst\Concrete\ReportDownloadLogs.cs" />
     <Compile Include="RemoteAnalyst\Concrete\SystemTbl.cs" />
+    <Compile Include="Repositories\PathwayAlertsRepository.cs" />
+    <Compile Include="Repositories\PvAlertsRepository.cs" />
+    <Compile Include="Repositories\PvCollectsRepository.cs" />
+    <Compile Include="Repositories\PvCPUBusiesRepository.cs" />
+    <Compile Include="Repositories\PvCPUManyRepository.cs" />
+    <Compile Include="Repositories\PvErrorsRepository.cs" />
+    <Compile Include="Repositories\PvPwyListRepository.cs" />
+    <Compile Include="Repositories\PvPwyManyRepository.cs" />
+    <Compile Include="Repositories\PvScInfoRepository.cs" />
+    <Compile Include="Repositories\PvScLStatRepository.cs" />
+    <Compile Include="Repositories\PvScPrStusRepository.cs" />
+    <Compile Include="Repositories\PvScStusRepository.cs" />
+    <Compile Include="Repositories\PvScTStatRepository.cs" />
+    <Compile Include="Repositories\PvTcpInfoRepository.cs" />
+    <Compile Include="Repositories\PvTcpStusRepository.cs" />
+    <Compile Include="Repositories\PvTermStatRepository.cs" />
+    <Compile Include="Repositories\TrendPathwayHourlyRepository.cs" />
     <Compile Include="Services\AllPathwayService.cs" />
-    <Compile Include="Services\CPUBusyService.cs" />
     <Compile Include="Services\DataDictionaryService.cs" />
-    <Compile Include="Abstract\IDataDictionaryService.cs" />
+    <Compile Include="Abstract\Services\IDataDictionaryService.cs" />
     <Compile Include="Services\DataTableService.cs" />
-    <Compile Include="Abstract\IDataTableService.cs" />
-    <Compile Include="Abstract\IPvPwyListService.cs" />
-    <Compile Include="Abstract\IPvCollectService.cs" />
-    <Compile Include="Abstract\IPvAlertService.cs" />
-    <Compile Include="Abstract\IPathwayAlertService.cs" />
-    <Compile Include="Abstract\IPerPathwayServerService.cs" />
-    <Compile Include="Abstract\IPerPathwayTermService.cs" />
-    <Compile Include="Abstract\IAllPathwayService.cs" />
-    <Compile Include="Abstract\IPerPathwayService.cs" />
-    <Compile Include="Abstract\ICPUBusyService.cs" />
-    <Compile Include="Abstract\IPerPathwayTcpService.cs" />
+    <Compile Include="Abstract\Services\IDataTableService.cs" />
+    <Compile Include="Abstract\Services\IPvPwyListService.cs" />
+    <Compile Include="Abstract\Services\IPvAlertService.cs" />
+    <Compile Include="Abstract\Services\IPathwayAlertService.cs" />
+    <Compile Include="Abstract\Services\IPerPathwayServerService.cs" />
+    <Compile Include="Abstract\Services\IPerPathwayTermService.cs" />
+    <Compile Include="Abstract\Services\IAllPathwayService.cs" />
+    <Compile Include="Abstract\Services\IPerPathwayService.cs" />
+    <Compile Include="Abstract\Services\IPerPathwayTcpService.cs" />
     <Compile Include="Services\DeletePathwayData.cs" />
     <Compile Include="Services\PathwayAlertService.cs" />
     <Compile Include="Services\PerPathwayServerService.cs" />
@@ -209,9 +289,13 @@
     <Compile Include="Services\PerPathwayTcpService.cs" />
     <Compile Include="Services\PerPathwayTermService.cs" />
     <Compile Include="Services\PvAlertService.cs" />
-    <Compile Include="Services\PvCollectService.cs" />
+    <Compile Include="Services\PvCollectsService.cs" />
+    <Compile Include="Services\PvCPUBusyService.cs" />
     <Compile Include="Services\PvPwyListService.cs" />
     <Compile Include="Services\PvPwyManyService.cs" />
+    <Content Include="system.hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -222,6 +306,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Content Include="main.hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -239,6 +326,7 @@
   <ItemGroup>
     <Content Include="bin\MySql.Data.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Repositories;
 using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway.Term;
+using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {
     public class PerPathwayTermService : IPerPathwayTermService {
@@ -20,7 +22,7 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<TermTop20View>> GetTermTop20(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes) {
-            IPvTermStat termStat = new PvTermStat(_connectionString);
+            IPvTermStatRepository termStat = new PvTermStatRepository();
 
             var termTop20 = new Dictionary<string, List<TermTop20View>>();
 
@@ -53,7 +55,7 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<TermUnusedView>> GetTermUnused(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes) {
-            IPvTermStat termStat = new PvTermStat(_connectionString);
+            IPvTermStatRepository termStat = new PvTermStatRepository();
 
             var termTop20 = new Dictionary<string, List<TermUnusedView>>();
 

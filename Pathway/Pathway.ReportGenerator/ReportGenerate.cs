@@ -1,6 +1,7 @@
 ﻿using log4net;
 using OfficeOpenXml;
 using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Services;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.RemoteAnalyst.Concrete;
 using Pathway.Core.Services;
@@ -132,7 +133,7 @@ namespace Pathway.ReportGenerator
 
             _log.InfoFormat("-------------------Generate Daily report at: {0}", DateTime.Now);
 
-            IPvCollectService collectService = new PvCollectService(_connectionStringSystem);
+            IPvCollectsService collectService = new PvCollectsService();
             bool isMultiDays = false;
             var tsSpan = _toTimestamp - _fromTimestamp;
             if (tsSpan.TotalDays > 1)
@@ -260,7 +261,7 @@ namespace Pathway.ReportGenerator
             int pathwayCount = 0;
 
             //Get list of days with data.
-            IPvCollectService collectService = new PvCollectService(_connectionStringSystem);
+            IPvCollectsService collectService = new PvCollectsService();
             var datesWithData = collectService.GetDatesWithDataFor(_fromTimestamp, _toTimestamp);
             StringBuilder sbLog = new StringBuilder();
             //Create Daily Alerts.
@@ -872,7 +873,7 @@ namespace Pathway.ReportGenerator
             }
 
             var data = Resource1.Pathway;
-            using (var stream = new FileStream(helpfile, FileMode.Create))
+            using(var stream = new FileStream(helpfile, FileMode.Create))
             {
                 stream.Write(data, 0, data.Count());
                 stream.Flush();
@@ -914,7 +915,7 @@ namespace Pathway.ReportGenerator
 
             var dateList = new List<DateTime>();
             //Get the list of days that has a data.
-            IPvCollectService collectService = new PvCollectService(_connectionStringSystem);
+            IPvCollectsService collectService = new PvCollectsService();
             for (var dtStart = _fromTimestamp; dtStart.Date < _toTimestamp.Date; dtStart = dtStart.AddDays(1))
             {
                 var exits = collectService.IsDuplictedFor(dtStart, dtStart.AddDays(1));
@@ -1151,7 +1152,7 @@ namespace Pathway.ReportGenerator
                 _reportDownloadLogs.InsertNewLog(_reportDownloadId, DateTime.Now, "Generating detail report for " + list);
                 //Parallel.ForEach(_pathwayList, list => {
                 //Check if there is a PathwayName on PvPwylist.
-                IPvPwyListService checkPathway = new PvPwyListService(_connectionStringSystem);
+                IPvPwyListService checkPathway = new PvPwyListService();
                 var exits = checkPathway.CheckPathwayNameFor(list, _fromTimestamp, _toTimestamp);
                 if (exits)
                 {
@@ -1776,7 +1777,7 @@ namespace Pathway.ReportGenerator
             {
                 //Parallel.ForEach(_pathwayList, list => {
                 //Check if there is a PathwayName on PvPwylist.
-                var checkPathway = new PvPwyListService(_connectionStringSystem);
+                var checkPathway = new PvPwyListService();
                 var exits = checkPathway.CheckPathwayNameFor(list, fromTimestamp, toTimestamp);
                 if (exits)
                 {

@@ -4,11 +4,13 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Repositories;
 using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway.Server;
 using Pathway.Core.Infrastructure.PerPathway.Tcp;
 using Pathway.Core.Infrastructure.PerPathway.Term;
+using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {
     public class PerPathwayTcpService : IPerPathwayTcpService {
@@ -21,8 +23,8 @@ namespace Pathway.Core.Services {
         }
 
         public List<TcpTransactionView> GetTcpTransactionFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName) {
-            IPvTcpInfo tcpinfo = new PvTcpInfo(_connectionString);
-            IPvCPUMany cpuMany = new PvCPUMany(_connectionString);
+            IPvTcpInfoRepository tcpinfo = new PvTcpInfoRepository();
+            IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
 
             double cpuElapse = cpuMany.GetCPUElapse(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)),
                 toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
@@ -83,8 +85,8 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<TcpQueuedTransactionView>> GetTcpQueuedTransactionFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes) {
-            IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
-            IPvTcpInfo tcpinfo = new PvTcpInfo(_connectionString);
+            IPvTcpStusRepository tcpStus = new PvTcpStusRepository();
+            IPvTcpInfoRepository tcpinfo = new PvTcpInfoRepository();
 
             var tcpQueuedView = new Dictionary<string, List<TcpQueuedTransactionView>>();
 
@@ -114,7 +116,7 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<ServerQueueTcpSubView>> GetQueueTCPSubFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes) {
-            IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
+            IPvTcpStusRepository tcpStus = new PvTcpStusRepository();
 
             var queueTCPSubs = new Dictionary<string, List<ServerQueueTcpSubView>>();
             for (var dtStart = fromTimestamp; dtStart.Date < toTimestamp.Date; dtStart = IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec)) {
@@ -134,8 +136,8 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<ServerUnusedServerClassView>> GetTcpUnusedFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes) {
-            IPvTermStat termStat = new PvTermStat(_connectionString);
-            IPvTcpInfo tcpinfo = new PvTcpInfo(_connectionString);
+            IPvTermStatRepository termStat = new PvTermStatRepository();
+            IPvTcpInfoRepository tcpinfo = new PvTcpInfoRepository();
 
             var tcpUnusedView = new Dictionary<string, List<ServerUnusedServerClassView>>();
 

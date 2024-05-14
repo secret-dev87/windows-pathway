@@ -40,8 +40,8 @@ namespace Pathway.ReportGenerator
             //IPerPathwayServerService serverService = new PerPathwayServerService(connectionStringSystem, interval);
             //var serverTransactionCount = serverService.GetServerTransactionsFor(fromTimestamp, toTimestamp, "$FAIA");
 
-            IPvPwyList pwyList = new PvPwyList(connectionStringSystem);
-            var pwyLists = pwyList.GetPathwayNames(fromTimestamp, toTimestamp);
+            IPvPwyListService pwyList = new PvPwyListService();
+            var pwyLists = pwyList.GetPathwayNamesFor(fromTimestamp, toTimestamp);
             //var pwyLists = new List<string> { "$ISMS" };
             var report = new ReportGenerate(Log, saveLocation, connectionStringMain, connectionStringSystem, fromTimestamp, toTimestamp, pwyLists, interval, systemSerial, 0, true);
 
