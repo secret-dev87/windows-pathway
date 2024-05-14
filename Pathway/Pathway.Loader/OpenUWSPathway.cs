@@ -297,7 +297,7 @@ namespace Pathway.Loader {
         /// <param name="uwsPath"> Full path of the UWS pathway file.</param>
         /// <returns></returns>
         private bool OpenUWSPathwayFile(string uwsPath) {
-            using (var stream = new FileStream(uwsPath, FileMode.Open, FileAccess.Read, FileShare.Read)) {
+            using(var stream = new FileStream(uwsPath, FileMode.Open, FileAccess.Read, FileShare.Read)) {
                 //using (StreamReader Reader = new StreamReader(stream))
                 using (Reader = new BinaryReader(stream)) {
                     var myEncoding = new ASCIIEncoding();

@@ -25,14 +25,14 @@ namespace Pathway.Core.Services
 
         public void InsertEmptyDataFor(string pathwayName, DateTime fromTimestamp, DateTime toTimestamp)
         {
-            IPvAlerts alerts = new PvAlerts(_connectionString);
+            IPvAlertsRepository alerts = new PvAlertsRepository();
             alerts.InsertEmptyData(pathwayName, fromTimestamp, toTimestamp);
         }
 
         public List<Alert> GetHourlyAlertFor(string alertName, DateTime fromTimestamp, DateTime toTimestamp)
         {
             var alertView = new List<Alert>();
-            IPvAlerts alerts = new PvAlerts(_connectionString);
+            IPvAlertsRepository alerts = new PvAlertsRepository();
 
             switch (alertName)
             {
@@ -269,7 +269,7 @@ namespace Pathway.Core.Services
 
         public void UpdateAlertFor(string alertName, List<Alert> alert)
         {
-            IPvAlerts alerts = new PvAlerts(_connectionString);
+            IPvAlertsRepository alerts = new PvAlertsRepository();
 
             foreach (Alert alertView in alert)
             {
@@ -283,7 +283,7 @@ namespace Pathway.Core.Services
         public List<Alert> GetCollectionAlertFor(string pathwayName, string alertName, DateTime fromTimestamp, DateTime toTimestamp)
         {
             var alertView = new List<Alert>();
-            IPvAlerts alerts = new PvAlerts(_connectionString);
+            IPvAlertsRepository alerts = new PvAlertsRepository();
 
             switch (alertName) 
             {
@@ -357,7 +357,7 @@ namespace Pathway.Core.Services
         public List<Alert> GetCollectionAlertForInterval(string pathwayName, string alertName, DateTime fromTimestamp, DateTime toTimestamp)
         {
             var alertView = new List<Alert>();
-            IPvAlerts alerts = new PvAlerts(_connectionString);
+            IPvAlertsRepository alerts = new PvAlertsRepository();
 
             switch (alertName)
             {                
@@ -544,7 +544,7 @@ namespace Pathway.Core.Services
 
         public Dictionary<string, List<UnusedServerProcesses>> GetUnusedServerProcessesesFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null)
         {
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
 
             var serverProcesses = new Dictionary<string, List<UnusedServerProcesses>>();
 
@@ -571,7 +571,7 @@ namespace Pathway.Core.Services
 
         public Dictionary<string, List<ServerMaxLinks>> GetServerMaxLinksFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null)
         {
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
 
             var serverMaxLinks = new Dictionary<string, List<ServerMaxLinks>>();
 
@@ -598,7 +598,7 @@ namespace Pathway.Core.Services
 
         public Dictionary<string, List<CheckDirectoryON>> GetCheckDirectoryONFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null)
         {
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
 
             var checkDirectoryON = new Dictionary<string, List<CheckDirectoryON>>();
 
@@ -625,7 +625,7 @@ namespace Pathway.Core.Services
 
         public Dictionary<string, List<HighDynamicServers>> GetHighDynamicServersFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null)
         {
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
             var highDynamicServers = new Dictionary<string, List<HighDynamicServers>>();
 
             for (var dtStart = fromTimestamp; dtStart.Date < toTimestamp.Date; dtStart = IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec))
@@ -651,7 +651,7 @@ namespace Pathway.Core.Services
         
         public Dictionary<string, List<ServerErrorListView>> GetServerErrorListIntervalFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null)
         {
-            IPvScStus sclStat = new PvScStus(_connectionString);
+            IPvScStusRepository sclStat = new PvScStusRepository();
 
             var errorLists = new Dictionary<string, List<ServerErrorListView>>();
             for (var dtStart = fromTimestamp; dtStart.Date < toTimestamp.Date; dtStart = IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec))
@@ -711,7 +711,7 @@ namespace Pathway.Core.Services
 
         public Dictionary<string, List<ServerQueueTcpSubView>> GetQueueTCPSubFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null)
         {
-            IPvScTStat sctStat = new PvScTStat(_connectionString);
+            IPvScTStatRepository sctStat = new PvScTStatRepository();
 
             var queueTCPSubs = new Dictionary<string, List<ServerQueueTcpSubView>>();
             for (var dtStart = fromTimestamp; dtStart.Date < toTimestamp.Date; dtStart = IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec))
@@ -737,7 +737,7 @@ namespace Pathway.Core.Services
 
         public Dictionary<string, List<ServerQueueTcpSubView>> GetQueueLinkmonSubFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null)
         {
-            IPvScLStat sclStat = new PvScLStat(_connectionString);
+            IPvScLStatRepository sclStat = new PvScLStatRepository();
 
             var queueLinkmonSubs = new Dictionary<string, List<ServerQueueTcpSubView>>();
             for (var dtStart = fromTimestamp; dtStart.Date < toTimestamp.Date; dtStart = IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec))
@@ -763,7 +763,7 @@ namespace Pathway.Core.Services
 
         public Dictionary<string, List<ServerErrorView>> GetServerErrorListSubFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null)
         {
-            IPvScStus sclStat = new PvScStus(_connectionString);
+            IPvScStusRepository sclStat = new PvScStusRepository();
 
             var errorLists = new Dictionary<string, List<ServerErrorView>>();
             for (var dtStart = fromTimestamp; dtStart.Date < toTimestamp.Date; dtStart = IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec))

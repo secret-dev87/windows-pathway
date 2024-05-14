@@ -58,7 +58,7 @@ namespace Pathway.Core.Repositories
         {
             bool isDuplicted = false;
 
-            using (var session = NHibernateHelper.OpenSystemSession())
+            using(var session = NHibernateHelper.OpenSystemSession())
             {
                 var pvCollect = session.Query<PvCollectEntity>()
                     .Where(x => x.FromTimestamp >= fromTimestamp && x.ToTimestamp <= toTimestamp)

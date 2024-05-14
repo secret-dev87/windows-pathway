@@ -21,10 +21,10 @@ namespace Pathway.Core.Services {
         }
         public List<ServerCPUBusyView> GetServerCPUBusyFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, int ipu) {
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
-            IPvScInfo scInfo = new PvScInfo(_connectionString);
-            IPvScTStat scTStat = new PvScTStat(_connectionString);
-            IPvScLStat scLStat = new PvScLStat(_connectionString);
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvScInfoRepository scInfo = new PvScInfoRepository();
+            IPvScTStatRepository scTStat = new PvScTStatRepository();
+            IPvScLStatRepository scLStat = new PvScLStatRepository();
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
 
             double cpuElapse = cpuMany.GetCPUElapse(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
             if (cpuElapse == 0)
@@ -85,9 +85,9 @@ namespace Pathway.Core.Services {
 
         public List<ServerCPUBusyView> GetServerProcessCountFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName) {
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
-            IPvScInfo scInfo = new PvScInfo(_connectionString);
-            IPvScTStat scTStat = new PvScTStat(_connectionString);
-            IPvScLStat scLStat = new PvScLStat(_connectionString);
+            IPvScInfoRepository scInfo = new PvScInfoRepository();
+            IPvScTStatRepository scTStat = new PvScTStatRepository();
+            IPvScLStatRepository scLStat = new PvScLStatRepository();
             //var scPrStus = new PvScPrStus(_connectionString);
 
             double cpuElapse = cpuMany.GetCPUElapse(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
@@ -137,7 +137,7 @@ namespace Pathway.Core.Services {
         }
 
         public List<ServerQueueTcpView> GetServerQueueTCPFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName) {
-            IPvScTStat sctStat = new PvScTStat(_connectionString);
+            IPvScTStatRepository sctStat = new PvScTStatRepository();
 
             var queueTcp = sctStat.GetServerQueueTCP(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)),
                                                     toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])),
@@ -147,7 +147,7 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<string>> GetServerPendingClassIntervalFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null) {
-            IPvScStus sctStat = new PvScStus(_connectionString);
+            IPvScStusRepository sctStat = new PvScStusRepository();
 
             var pendingClasses = new Dictionary<string, List<string>>();
 
@@ -171,7 +171,7 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<ServerUnusedServerProcessesView>> GetServerPendingProcessIntervalFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null) {
-            IPvScPrStus sctStat = new PvScPrStus(_connectionString);
+            IPvScPrStusRepository sctStat = new PvScPrStusRepository();
 
             var pendingProcesses = new Dictionary<string, List<ServerUnusedServerProcessesView>>();
 
@@ -195,7 +195,7 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<ServerQueueTcpView>> GetServerQueueTCPIntervalFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null) {
-            IPvScTStat sctStat = new PvScTStat(_connectionString);
+            IPvScTStatRepository sctStat = new PvScTStatRepository();
 
             var tcpQueues = new Dictionary<string, List<ServerQueueTcpView>>();
 
@@ -219,7 +219,7 @@ namespace Pathway.Core.Services {
         }
 
         public List<ServerQueueLinkmonView> GetServerQueueLinkmonFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName) {
-            IPvScLStat sclStat = new PvScLStat(_connectionString);
+            IPvScLStatRepository sclStat = new PvScLStatRepository();
 
             var queueLinkmon = sclStat.GetServerQueueLinkmon(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), 
                                                             toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])), 
@@ -229,7 +229,7 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<ServerQueueLinkmonView>> GetServerQueueLinkmonIntervalFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null) {
-            IPvScLStat sclStat = new PvScLStat(_connectionString);
+            IPvScLStatRepository sclStat = new PvScLStatRepository();
 
             var linkmonQueues = new Dictionary<string, List<ServerQueueLinkmonView>>();
             for (var dtStart = fromTimestamp; dtStart.Date < toTimestamp.Date; dtStart = IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec)) {
@@ -296,7 +296,7 @@ namespace Pathway.Core.Services {
 
         public Dictionary<string, List<ServerCPUBusyView>> GetServerTransactionsIntervalFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes) {
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
-            IPvScInfo scInfo = new PvScInfo(_connectionString);
+            IPvScInfoRepository scInfo = new PvScInfoRepository();
 
             double cpuElapse = cpuMany.GetCPUElapse(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)),
                                                     toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
@@ -367,10 +367,10 @@ namespace Pathway.Core.Services {
 
         public List<ServerCPUBusyView> GetServerTransactionsFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, int ipu) {
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
-            IPvScInfo scInfo = new PvScInfo(_connectionString);
-            var scTStat = new PvScTStat(_connectionString);
-            var scLStat = new PvScLStat(_connectionString);
-            var scPrStus = new PvScPrStus(_connectionString);
+            IPvScInfoRepository scInfo = new PvScInfoRepository();
+            var scTStat = new PvScTStatRepository();
+            var scLStat = new PvScLStatRepository();
+            var scPrStus = new PvScPrStusRepository();
 
             double cpuElapse = cpuMany.GetCPUElapse(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
             if (cpuElapse == 0)
@@ -407,7 +407,7 @@ namespace Pathway.Core.Services {
 
         public List<ServerCPUBusyView> GetServerTransactionsPerIntervalFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName) {
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
-            IPvScInfo scInfo = new PvScInfo(_connectionString);
+            IPvScInfoRepository scInfo = new PvScInfoRepository();
 
             double cpuElapse = cpuMany.GetCPUElapse(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
             if (cpuElapse == 0)
@@ -443,7 +443,7 @@ namespace Pathway.Core.Services {
         }
 
         public List<ServerUnusedServerClassView> GetServerUnusedClassesFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName) {
-            IPvScLStat scLStat = new PvScLStat(_connectionString);
+            IPvScLStatRepository scLStat = new PvScLStatRepository();
 
             var serverClassCollection = scLStat.GetServerUnusedServerClass(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), 
                                                                 toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])),
@@ -452,7 +452,7 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<ServerUnusedServerClassView>> GetServerUnusedClassesIntervalFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, List<DateTime> datesWithData = null) {
-            IPvScLStat scLStat = new PvScLStat(_connectionString);
+            IPvScLStatRepository scLStat = new PvScLStatRepository();
 
             var serverClasses = new Dictionary<string, List<ServerUnusedServerClassView>>();
 
@@ -506,7 +506,7 @@ namespace Pathway.Core.Services {
         }
         
         public List<ServerUnusedServerProcessesView> GetServerUnusedProcessesFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName) {
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
             var serverProcess = scPrStus.GetServerUnusedServerProcessPerPathway(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)),
                                                                 toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])),
                                                                 pathwayName);
@@ -515,7 +515,7 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, List<ServerUnusedServerProcessesView>> GetServerUnusedProcessesIntervalFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes) {
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
 
             var serverProcesses = new Dictionary<string, List<ServerUnusedServerProcessesView>>();
 

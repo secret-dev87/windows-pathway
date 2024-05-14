@@ -873,7 +873,7 @@ namespace Pathway.ReportGenerator
             }
 
             var data = Resource1.Pathway;
-            using (var stream = new FileStream(helpfile, FileMode.Create))
+            using(var stream = new FileStream(helpfile, FileMode.Create))
             {
                 stream.Write(data, 0, data.Count());
                 stream.Flush();

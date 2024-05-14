@@ -15,14 +15,14 @@ namespace Pathway.Core.Services {
         }
 
         public List<string> GetAlertsFor() {
-            IPathwayAlerts alerts = new PathwayAlerts(_connectionString);
+            IPathwayAlertsRepository alerts = new PathwayAlertsRepository();
             var alertList = alerts.GetAlerts();
 
             return alertList;
         }
 
         public List<string> GetAllAlertsFor() {
-            IPathwayAlerts alerts = new PathwayAlerts(_connectionString);
+            IPathwayAlertsRepository alerts = new PathwayAlertsRepository();
             var alertList = alerts.GetAllAlerts();
 
             return alertList;

@@ -25,7 +25,7 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, PathwayHourlyView> GetPathwayHourly(DateTime fromTimestamp, DateTime toTimestamp) {
-            ITrendPathwayHourly trendPathwayHourly = new TrendPathwayHourly(_connectionString);
+            ITrendPathwayHourlyRepository trendPathwayHourly = new TrendPathwayHourlyRepository();
             DataTable pathwayHourly = trendPathwayHourly.GetPathwayHourly(fromTimestamp, toTimestamp);
             Dictionary<string, PathwayHourlyView> pathwayNameHourDic = new Dictionary<string, PathwayHourlyView>();
             foreach (DataRow row in pathwayHourly.Rows) {
@@ -48,8 +48,8 @@ namespace Pathway.Core.Services {
 
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
             IPvPwyManyRepository pwyMany = new PvPwyManyRepository();
-            IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvTcpStusRepository tcpStus = new PvTcpStusRepository();
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
             IPvPwyListRepository pwyList = new PvPwyListRepository();
 
             var cpuElapse = cpuMany.GetCPUElapseAndBusyTimePerCPU(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
@@ -171,8 +171,8 @@ namespace Pathway.Core.Services {
 
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
             IPvPwyManyRepository pwyMany = new PvPwyManyRepository();
-            IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvTcpStusRepository tcpStus = new PvTcpStusRepository();
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
             IPvPwyListRepository pwyList = new PvPwyListRepository();
             var pwyLists = pwyList.GetPathwayNames(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
 
@@ -292,8 +292,8 @@ namespace Pathway.Core.Services {
 
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
             IPvPwyManyRepository pwyMany = new PvPwyManyRepository();
-            IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvTcpStusRepository tcpStus = new PvTcpStusRepository();
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
             IPvPwyListRepository pwyList = new PvPwyListRepository();
             var pwyLists = pwyList.GetPathwayNames(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
 
@@ -405,8 +405,8 @@ namespace Pathway.Core.Services {
         public CPUSummaryView GetCPUSummaryFor(DateTime fromTimestamp, DateTime toTimestamp, string systemSerial) {
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
             IPvPwyManyRepository pwyMany = new PvPwyManyRepository();
-            var tcpStus = new PvTcpStus(_connectionString);
-            var scPrStus = new PvScPrStus(_connectionString);
+            IPvTcpStusRepository tcpStus = new PvTcpStusRepository();
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
 
             CPUSummaryView cpuSummary = cpuMany.GetCPUElapseAndBusyTime(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
 
@@ -495,8 +495,8 @@ namespace Pathway.Core.Services {
 
         public TransactionServerView GetTransactionServer(DateTime fromTimestamp, DateTime toTimestamp) {
             IPvPwyListRepository pwyList = new PvPwyListRepository();
-            IPvScLStat scLStat = new PvScLStat(_connectionString);
-            IPvScTStat scTStat = new PvScTStat(_connectionString);
+            IPvScLStatRepository scLStat = new PvScLStatRepository();
+            IPvScTStatRepository scTStat = new PvScTStatRepository();
 
             var pwyLists = pwyList.GetPathwayNames(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
 
@@ -531,8 +531,8 @@ namespace Pathway.Core.Services {
 
         public TransactionTcpView GetTransactionTcp(DateTime fromTimestamp, DateTime toTimestamp) {
             IPvPwyListRepository pwyList = new PvPwyListRepository();
-            IPvTermStat termStat = new PvTermStat(_connectionString);
-            IPvScTStat scTStat = new PvScTStat(_connectionString);
+            IPvTermStatRepository termStat = new PvTermStatRepository();
+            IPvScTStatRepository scTStat = new PvScTStatRepository();
 
             var pwyLists = pwyList.GetPathwayNames(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
 

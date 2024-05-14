@@ -26,8 +26,8 @@ namespace Pathway.Core.Services {
 
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
             IPvPwyManyRepository pwyMany = new PvPwyManyRepository();
-            IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvTcpStusRepository tcpStus = new PvTcpStusRepository();
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
 
 
             var cpuElapse = cpuMany.GetCPUElapsePerCPU(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
@@ -78,8 +78,8 @@ namespace Pathway.Core.Services {
         public CPUSummaryView GetCPUSummaryFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, string systemSerial) {
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
             IPvPwyManyRepository pwyMany = new PvPwyManyRepository();
-            IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvTcpStusRepository tcpStus = new PvTcpStusRepository();
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
 
             var cpuElapse = cpuMany.GetCPUElapse(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));
             if (cpuElapse == 0)
@@ -108,8 +108,8 @@ namespace Pathway.Core.Services {
         public Dictionary<string, CPUSummaryView> GetIntervalCPUSummaryFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes, string systemSerial) {
             IPvCPUManyRepository cpuMany = new PvCPUManyRepository();
             IPvPwyManyRepository pwyMany = new PvPwyManyRepository();
-            IPvTcpStus tcpStus = new PvTcpStus(_connectionString);
-            IPvScPrStus scPrStus = new PvScPrStus(_connectionString);
+            IPvTcpStusRepository tcpStus = new PvTcpStusRepository();
+            IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
 
             var summaryInterval = new Dictionary<string, CPUSummaryView>();
                 var process = new Process(_connectionString);
@@ -146,8 +146,8 @@ namespace Pathway.Core.Services {
         }
 
         public TransactionServerView GetTransactionServerFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName) {
-            IPvScLStat scLStat = new PvScLStat(_connectionString);
-            IPvScTStat scTStat = new PvScTStat(_connectionString);
+            IPvScLStatRepository scLStat = new PvScLStatRepository();
+            IPvScTStatRepository scTStat = new PvScTStatRepository();
 
             var transactionServerView = new TransactionServerView {
                 LinkmonToServer = scLStat.GetLinkmonToServer(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])), pathwayName),
@@ -158,8 +158,8 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, TransactionServerView> GetIntervalTransactionServerFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes) {
-            IPvScLStat scLStat = new PvScLStat(_connectionString);
-            IPvScTStat scTStat = new PvScTStat(_connectionString);
+            IPvScLStatRepository scLStat = new PvScLStatRepository();
+            IPvScTStatRepository scTStat = new PvScTStatRepository();
 
             var serverTransactions = new Dictionary<string, TransactionServerView>();
             for (var dtStart = fromTimestamp; dtStart.Date < toTimestamp.Date; dtStart = IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec)) {
@@ -177,8 +177,8 @@ namespace Pathway.Core.Services {
         }
 
         public TransactionTcpView GetTransactionTCPFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName) {
-            IPvTermStat termStat = new PvTermStat(_connectionString);
-            IPvScTStat scTStat = new PvScTStat(_connectionString);
+            IPvTermStatRepository termStat = new PvTermStatRepository();
+            IPvScTStatRepository scTStat = new PvScTStatRepository();
 
             var transactionTcpView = new TransactionTcpView {
                 TermToTcp = termStat.GetTermToTcp(fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])), pathwayName),
@@ -189,8 +189,8 @@ namespace Pathway.Core.Services {
         }
 
         public Dictionary<string, TransactionTcpView> GetIntervalTransactionTCPFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, Enums.IntervalTypes intervalTypes) {
-            IPvTermStat termStat = new PvTermStat(_connectionString);
-            IPvScTStat scTStat = new PvScTStat(_connectionString);
+            IPvTermStatRepository termStat = new PvTermStatRepository();
+            IPvScTStatRepository scTStat = new PvScTStatRepository();
             var tcpTransactions = new Dictionary<string, TransactionTcpView>();
 
             for (var dtStart = fromTimestamp; dtStart.Date < toTimestamp.Date; dtStart = IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec).AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]))) {
