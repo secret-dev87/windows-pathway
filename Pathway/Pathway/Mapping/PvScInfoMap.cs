@@ -61,18 +61,18 @@ namespace Pathway.Core.Mapping
             Map(x => x.NumStatic);
             Map(x => x.ScPriority);
             Map(x => x.SendTimeout);
-            Map(x => x.ScOwner);
-            Map(x => x.HighPin);
-            Map(x => x.SecurityCode);
-            Map(x => x.ProcessType);
-            Map(x => x.Debug);
-            Map(x => x.GuardianLib);
-            Map(x => x.HomeTermSc);
-            Map(x => x.InFile);
-            Map(x => x.OutFile);
-            Map(x => x.ProgramName);
-            Map(x => x.TmfSc);
-            Map(x => x.DefaultVolume);
+            Map(x => x.ScOwner).Length(26);
+            Map(x => x.HighPin).Length(1);
+            Map(x => x.SecurityCode).Length(1);
+            Map(x => x.ProcessType).Length(1);
+            Map(x => x.Debug).Length(1);
+            Map(x => x.GuardianLib).Length(35);
+            Map(x => x.HomeTermSc).Length(35);
+            Map(x => x.InFile).Length(35);
+            Map(x => x.OutFile).Length(35);
+            Map(x => x.ProgramName).Length(35);
+            Map(x => x.TmfSc).Length(1);
+            Map(x => x.DefaultVolume).Length(35);
         }
     }
 }

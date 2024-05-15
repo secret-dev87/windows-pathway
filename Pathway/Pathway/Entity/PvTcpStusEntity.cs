@@ -20,7 +20,7 @@ namespace Pathway.Core.Entity
         public virtual double TcpStatusTime { get; set; }
         public virtual double TcpProcessTime { get; set; }
         public virtual double DeltaTime { get; set; }
-        public virtual double DeltaProcTime { get; set; }
+        public virtual double? DeltaProcTime { get; set; }
         public virtual string TcpCpu { get; set; }
         public virtual double CurPages { get; set; }
         public virtual double RecQueue { get; set; }

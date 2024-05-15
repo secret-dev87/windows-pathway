@@ -16,12 +16,12 @@ namespace Pathway.Core.Entity
         public virtual int ErrorNumber { get; set; }
         public virtual int ErrorInfo { get; set; }
         public virtual int Pid { get; set; }
-        public virtual int ProcLinks { get; set; }
+        public virtual int? ProcLinks { get; set; }
         public virtual int ProcWeight { get; set; }
         public virtual double ScStatusTime { get; set; }
         public virtual double ScProcessTime { get; set; }
-        public virtual double DeltaTime { get; set; }
-        public virtual double DeltaProcTime { get; set; }
+        public virtual double? DeltaTime { get; set; }
+        public virtual double? DeltaProcTime { get; set; }
         public virtual string ScprCpu { get; set; }
         public virtual double CurPages { get; set; }
         public virtual double RecQueue { get; set; }

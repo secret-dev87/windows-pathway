@@ -28,7 +28,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         PathwayName = g.Key,
-                        TotalIrReqCnt = g.Sum(a => a.IrReqCnt)
+                        TotalIrReqCnt = g.Sum(a => a.IrReqCnt.Value)
                     })
                     .First();
 
@@ -49,10 +49,10 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => x.PathwayName)
                     .Select(g => new
                     {
-                        TotalIrReqCnt = g.Sum(a => a.IrReqCnt),
+                        TotalIrReqCnt = g.Sum(a => a.IrReqCnt.Value),
                         PathwayName = g.Key,
-                        PeakReqCnt = g.Max(a => a.IrReqCnt),
-                        AverageReqCnt = g.Average(a => a.IrReqCnt)
+                        PeakReqCnt = g.Max(a => a.IrReqCnt.Value),
+                        AverageReqCnt = g.Average(a => a.IrReqCnt.Value)
                     })
                     .ToList();
 
@@ -127,7 +127,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => new { x.PathwayName, x.ScName })
                     .Select(g => new
                     {
-                        SumOfIsReqcnt = g.Sum(a => a.IrReqCnt),
+                        SumOfIsReqcnt = g.Sum(a => a.IrReqCnt.Value),
                         PathwayName = g.Key.PathwayName,
                         ScName = g.Key.ScName
                     })
@@ -221,7 +221,7 @@ namespace Pathway.Core.Repositories
                     {
                         ScName = g.Key.ScName,
                         PathwayName = g.Key.PathwayName,
-                        SumofIsReqCnt = g.Sum(a => a.IsReqCnt)
+                        SumofIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                     });
 
                 var query2 = session.Query<PvScLStatEntity>()
@@ -231,7 +231,7 @@ namespace Pathway.Core.Repositories
                     {
                         ScName = g.Key.ScName,
                         PathwayName = g.Key.PathwayName,
-                        SumofIsReqCnt = g.Sum(a => a.IsReqCnt)
+                        SumofIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                     });
 
                 var result = from q1 in query1.ToList()

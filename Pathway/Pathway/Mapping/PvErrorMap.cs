@@ -17,10 +17,10 @@ namespace Pathway.Core.Mapping
             CompositeId()
                 .KeyProperty(x => x.FromTimestamp, "FromTimestamp")
                 .KeyProperty(x => x.ErrorNumber);
-            Map(x => x.Message);
-            Map(x => x.Cause);
-            Map(x => x.Effect);
-            Map(x => x.Recovery);
+            Map(x => x.Message).Length(150);
+            Map(x => x.Cause).Length(500);
+            Map(x => x.Effect).Length(500);
+            Map(x => x.Recovery).Length(500);
         }
     }
 }

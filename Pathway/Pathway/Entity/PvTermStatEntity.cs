@@ -20,7 +20,7 @@ namespace Pathway.Core.Entity
         public virtual double IaMaxSize { get; set; }
         public virtual double IaAggregateSize { get; set; }
         public virtual double IaIOs { get;set; }
-        public virtual double IsReqCnt { get; set; }
+        public virtual double? IsReqCnt { get; set; }
         public virtual double IsMaxSize { get; set; }
         public virtual double IsAggregateSize { get; set; }
         public virtual double IsIOs { get; set; }
@@ -39,9 +39,9 @@ namespace Pathway.Core.Entity
         public virtual double AcReqCnt { get; set; }
         public virtual double AcAggregateReqSize { get; set; }
         public virtual int TotalMeasCount { get; set; }
-        public virtual double AvgResp { get; set; }
-        public virtual double MaxResp { get; set; }
-        public virtual double MinResp { get; set; }
+        public virtual double? AvgResp { get; set; }
+        public virtual double? MaxResp { get; set; }
+        public virtual double? MinResp { get; set; }
         public virtual double SumOfSquares { get; set; }
         public virtual string TermTcpName { get; set; }
 

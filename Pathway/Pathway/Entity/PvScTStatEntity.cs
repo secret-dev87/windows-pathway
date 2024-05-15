@@ -20,18 +20,18 @@ namespace Pathway.Core.Entity
         public virtual double QIMaxWaits { get; set; }
         public virtual double QIAggregateWaits { get; set; }
         public virtual double QIDynamicLinks { get; set; }
-        public virtual double IsReqCnt { get; set; }
+        public virtual double? IsReqCnt { get; set; }
         public virtual double IsMaxSize { get; set; }
         public virtual double IsAggregateSize { get; set; }
         public virtual double IsIOs { get; set; }
-        public virtual double IrReqCnt { get; set; }
+        public virtual double? IrReqCnt { get; set; }
         public virtual double IrMaxSize { get; set; }
         public virtual double IrAggregateSize { get; set; }
         public virtual double IrIOs { get; set; }
         public virtual int TotalMeasCount { get; set; }
-        public virtual double AvgResp { get; set; }
-        public virtual double MaxResp { get; set; }
-        public virtual double MinResp { get; set; }
+        public virtual double? AvgResp { get; set; }
+        public virtual double? MaxResp { get; set; }
+        public virtual double? MinResp { get; set; }
         public virtual double SumOfSquares { get; set; }
 
         public override bool Equals(object obj)

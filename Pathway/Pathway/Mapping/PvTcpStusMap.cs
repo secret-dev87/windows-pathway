@@ -27,12 +27,12 @@ namespace Pathway.Core.Mapping
             Map(x => x.TcpProcessTime);
             Map(x => x.DeltaTime);
             Map(x => x.DeltaProcTime);
-            Map(x => x.TcpCpu);
+            Map(x => x.TcpCpu).Length(2);
             Map(x => x.CurPages);
             Map(x => x.RecQueue);
             Map(x => x.PageFaults);
-            Map(x => x.Procname);
-            Map(x => x.State);
+            Map(x => x.Procname).Length(6);
+            Map(x => x.State).Length(1);
         }
     }
 }

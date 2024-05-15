@@ -14,7 +14,7 @@ namespace Pathway.Core.Mapping
         {
             Table("pvtermstat");
             CompositeId()
-                .KeyProperty(x => x.FromTimestamp, "FromTimestapm")
+                .KeyProperty(x => x.FromTimestamp, "FromTimestamp")
                 .KeyProperty(x => x.ToTimestamp, "ToTimestamp")
                 .KeyProperty(x => x.PathwayName, "PathwayName")
                 .KeyProperty(x => x.TermName, "TermName");

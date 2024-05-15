@@ -31,7 +31,7 @@ namespace Pathway.Core.Repositories
                     {
                         TermTcpName = g.Key.TermTcpName,
                         Unused = g.Count(),
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt)
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                     })
                     .Where(x => x.TotalIsReqCnt == 0)
                     .OrderBy(x => x.TermTcpName)
@@ -64,7 +64,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         TermName = g.Key.TermName,
-                        MaxAvgResp = g.Max(a => a.AvgResp / 1000000),
+                        MaxAvgResp = g.Max(a => a.AvgResp.Value / 1000000),
                         TermTcpName = g.Key.TermTcpName
                     })
                     .OrderByDescending(x => x.MaxAvgResp)
@@ -99,7 +99,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         TermName = g.Key.TermName,
-                        MaxMaxResp = g.Max(a => a.MaxResp / 1000000),
+                        MaxMaxResp = g.Max(a => a.MaxResp.Value / 1000000),
                         TermTcpName = g.Key.TermTcpName
                     })
                     .OrderByDescending(x => x.MaxMaxResp)
@@ -134,7 +134,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         g.Key,
-                        TotalIsReqCnt = g.Sum(a => Convert.ToDouble(a.IsReqCnt))
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                     })
                     .First();
 
@@ -148,28 +148,23 @@ namespace Pathway.Core.Repositories
         {
             var termToTcp = new Dictionary<string, long>();
 
-            try
+            using (var session = NHibernateHelper.OpenSystemSession())
             {
-                using (var session = NHibernateHelper.OpenSystemSession())
-                {
-                    var result = session.Query<PvTermStatEntity>()
-                        .Where(x => x.FromTimestamp >= fromTimestamp && x.ToTimestamp <= toTimestamp)
-                        .GroupBy(x => x.PathwayName)
-                        .Select(g => new
-                        {
-                            PathwayName = g.Key,
-                            TotalIsReqCnt = g.Sum(a => Convert.ToDouble(a.IsReqCnt))
-                        })
-                        .ToList();
-
-                    foreach (var res in result)
+                var result = session.Query<PvTermStatEntity>()
+                    .Where(x => x.FromTimestamp >= fromTimestamp && x.ToTimestamp <= toTimestamp)
+                    .GroupBy(x => x.PathwayName)
+                    .Select(g => new
                     {
-                        termToTcp.Add(res.PathwayName.ToString(), Convert.ToInt64(res.TotalIsReqCnt));
-                    }
+                        PathwayName = g.Key,
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
+                    })
+                    .ToList();
+
+                foreach (var res in result)
+                {
+                    termToTcp.Add(res.PathwayName.ToString(), Convert.ToInt64(res.TotalIsReqCnt));
                 }
             }
-            catch { }
-            
 
             return termToTcp;
         }
@@ -188,7 +183,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         TermName = g.Key.TermName,
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt),
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value),
                         TermTcpName = g.Key.TermTcpName
                     })
                     .OrderByDescending(x => x.TotalIsReqCnt)
@@ -224,7 +219,7 @@ namespace Pathway.Core.Repositories
                     {
                         TermName = g.Key.TermName,
                         TermTcpName = g.Key.TermTcpName,
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt)
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                     });
 
                 var result = subquery

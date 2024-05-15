@@ -159,7 +159,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         PathwayName = g.Key.PathwayName,
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt),
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value),
                         FromTimestamp = g.Key.FromTimestamp,
                         ToTimestamp = g.Key.ToTimestamp
                     });
@@ -391,7 +391,7 @@ namespace Pathway.Core.Repositories
                         PathwayName = g.Key.PathwayName,
                         FromTimestamp = g.Key.FromTimestamp,
                         ToTimestamp = g.Key.ToTimestamp,
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt),
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value),
                         TermTcpName = g.Key.TermTcpName
                     });
 
@@ -877,7 +877,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         PathwayName = g.Key,
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt)
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                     });
 
                 var results = query
@@ -1110,7 +1110,7 @@ namespace Pathway.Core.Repositories
                     {
                         PathwayName = g.Key.PathwayName,
                         TermTcpName = g.Key.TermTcpName,
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt)
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                     });
 
                 var results = query
@@ -1425,7 +1425,7 @@ namespace Pathway.Core.Repositories
                         {
                             g.Key.ScName,
                             g.Key.PathwayName,
-                            SumofIsReqCnt = g.Sum(a => a.IsReqCnt)
+                            SumofIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                         }) :
                     session.Query<PvScTStatEntity>()
                         .Where(x => x.FromTimestamp >= fromTimestamp && x.ToTimestamp <= toTimestamp && x.PathwayName == pathwayName)
@@ -1434,7 +1434,7 @@ namespace Pathway.Core.Repositories
                         {
                             g.Key.ScName,
                             g.Key.PathwayName,
-                            SumofIsReqCnt = g.Sum(a => a.IsReqCnt)
+                            SumofIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                         });
 
                 var temp2 = pathwayName.Length == 0 ?
@@ -1445,7 +1445,7 @@ namespace Pathway.Core.Repositories
                         {
                             g.Key.ScName,
                             g.Key.PathwayName,
-                            SumofIsReqCnt = g.Sum(a => a.IsReqCnt)
+                            SumofIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                         }) :
                     session.Query<PvScLStatEntity>()
                         .Where(x => x.FromTimestamp >= fromTimestamp && x.ToTimestamp <= toTimestamp && x.PathwayName == pathwayName)
@@ -1454,7 +1454,7 @@ namespace Pathway.Core.Repositories
                         {
                             g.Key.ScName,
                             g.Key.PathwayName,
-                            SumofIsReqCnt = g.Sum(a => a.IsReqCnt)
+                            SumofIsReqCnt = g.Sum(a => a.IsReqCnt.Value)
                         });
 
                 var combinedResults = from t1 in temp1

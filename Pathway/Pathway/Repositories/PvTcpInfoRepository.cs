@@ -24,7 +24,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => new { x.PathwayName, x.TermTcpName })
                     .Select(g => new
                     {
-                        AvgResp = g.Average(a => a.AvgResp),
+                        AvgResp = g.Average(a => a.AvgResp.Value),
                         PathwayName = g.Key.PathwayName,
                         TermTcpName = g.Key.TermTcpName
                     })
@@ -85,7 +85,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => x.TcpName)
                     .Select(g => new
                     {
-                        SumOfDeltaProcTime = g.Sum(a => a.DeltaProcTime),
+                        SumOfDeltaProcTime = g.Sum(a => a.DeltaProcTime.Value),
                         TcpName = g.Key
                     })
                     .ToList();
@@ -110,7 +110,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => new { x.PathwayName, x.ScTcpName })
                     .Select(g => new
                     {
-                        SumOfIsReqcnt = g.Sum(a => a.IsReqCnt),
+                        SumOfIsReqcnt = g.Sum(a => a.IsReqCnt.Value),
                         PathwayName = g.Key.PathwayName,
                         ScTcpName = g.Key.ScTcpName
                     })
@@ -136,7 +136,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => new { x.PathwayName, x.TermTcpName })
                     .Select(g => new
                     {
-                        SumOfIsReqcnt = g.Sum(a => a.IsReqCnt),
+                        SumOfIsReqcnt = g.Sum(a => a.IsReqCnt.Value),
                         PathwayName = g.Key.PathwayName,
                         TermTcpName = g.Key.TermTcpName,
                     })

@@ -67,8 +67,8 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         CpuNumber = g.Key,
-                        TotalElapsedTime = g.Sum(a => a.MElapsedTime),
-                        TotalBusyTime = g.Sum(a => a.BusyTime) / ipus,
+                        TotalElapsedTime = g.Sum(a => a.MElapsedTime.Value),
+                        TotalBusyTime = g.Sum(a => a.BusyTime.Value) / ipus,
                     })                    
                     .OrderBy(CpuNumber => CpuNumber)
                     .ToList();
@@ -131,8 +131,8 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         CpuNumber = g.Key,
-                        TotalElpasedTime = g.Sum(a => Convert.ToDouble(a.MElapsedTime)),
-                        TotalBusyTime = g.Sum(a => Convert.ToDouble(a.BusyTime))
+                        TotalElpasedTime = g.Sum(a => a.MElapsedTime.Value),
+                        TotalBusyTime = g.Sum(a => a.BusyTime.Value)
                     })
                     .OrderBy(x => x.CpuNumber)
                     .ToList();
@@ -166,7 +166,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                         {
                             CpuNumber = g.Key,
-                            TotalElapsedTime = g.Sum(a => a.MElapsedTime)
+                            TotalElapsedTime = g.Sum(a => a.MElapsedTime.Value)
                         })
                     .ToList();
 
