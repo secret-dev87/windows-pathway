@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Services;
 using Pathway.Core.Concrete;
 
 namespace Pathway.Core.Services {

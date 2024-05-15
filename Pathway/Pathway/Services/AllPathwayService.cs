@@ -12,6 +12,7 @@ using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.AllPathway;
 using Pathway.Core.RemoteAnalyst.Concrete;
 using Pathway.Core.Abstract.Repositories;
+using Pathway.Core.Abstract.Services;
 using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {

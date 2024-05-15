@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Services;
 using Pathway.Core.Abstract.Repositories;
 using Pathway.Core.Repositories;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
-using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Services;
 using Pathway.Core.Abstract.Repositories;
 using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;

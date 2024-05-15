@@ -49,7 +49,7 @@ namespace Pathway.Core.Mapping
             Map(x => x.MaxResp);
             Map(x => x.MinResp);
             Map(x => x.SumOfSquares);
-            Map(x => x.TermTcpName);
+            Map(x => x.TermTcpName).Length(15);
         }
     }
 }

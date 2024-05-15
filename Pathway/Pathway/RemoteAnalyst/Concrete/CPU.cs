@@ -1,4 +1,6 @@
 ﻿using MySqlConnector;
+using Pathway.Core.Entity;
+using Pathway.Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +13,18 @@ namespace Pathway.Core.RemoteAnalyst.Concrete {
             _connectionString = connectionString;
         }
 
-        public string GetLatestTableName() {
-            //string cmdText = @"SELECT TableName FROM CurrentTables WHERE DataDate <= @DataDate ORDER BY DataDate DESC LIMIT 1";
-            var cmdText = @"SELECT TableName FROM CurrentTables WHERE TableName LIKE '%\_CPU\_%'
-                            ORDER BY DataDate DESC LIMIT 1";
+        public string GetLatestTableName() {            
             string tableName = "";
-            using (var connection = new MySqlConnection(_connectionString)) {
-                var command = new MySqlCommand(cmdText, connection);
 
-                connection.Open();
-                MySqlDataReader reader = command.ExecuteReader();
+            using(var session = NHibernateHelper.OpenSystemSession())
+            {
+                var result = session.Query<CurrentTableEntity>()
+                    .Where(x => x.TableName.Contains("_CPU_"))
+                    .OrderByDescending(x => x.DataDate)
+                    .Take(1)
+                    .ToList();
 
-                if (reader.Read()) {
-                    tableName = Convert.ToString(reader["TableName"]);
-                }
+                tableName = result[0].TableName.ToString();
             }
             return tableName;
         }

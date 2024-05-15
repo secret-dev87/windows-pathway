@@ -19,9 +19,9 @@ namespace Pathway.Core.Repositories
 
         public void InsertEmptyData(string pathwayName, DateTime fromTimestamp, DateTime toTimestamp)
         {
-            using (var session = NHibernateHelper.OpenSystemSession())
+            using(var session = NHibernateHelper.OpenSystemSession())
             {
-                using (var transaction = session.BeginTransaction())
+                using(var transaction = session.BeginTransaction())
                 {
                     var newAlerts = new PvAlertEntity
                     {

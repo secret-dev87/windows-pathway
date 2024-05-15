@@ -131,10 +131,10 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         CpuNumber = g.Key,
-                        TotalElpasedTime = g.Sum(a => a.MElapsedTime),
-                        TotalBusyTime = g.Sum(a => a.BusyTime)
+                        TotalElpasedTime = g.Sum(a => Convert.ToDouble(a.MElapsedTime)),
+                        TotalBusyTime = g.Sum(a => Convert.ToDouble(a.BusyTime))
                     })
-                    .OrderBy(CpuNumber => CpuNumber)
+                    .OrderBy(x => x.CpuNumber)
                     .ToList();
 
                 foreach(var cpu in cpuManys)

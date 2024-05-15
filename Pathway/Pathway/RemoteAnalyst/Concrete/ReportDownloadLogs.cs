@@ -1,4 +1,6 @@
 ﻿using MySqlConnector;
+using Pathway.Core.Entity.Main;
+using Pathway.Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,22 +14,24 @@ namespace Pathway.Core.RemoteAnalyst.Concrete {
             _connectionString = connectionString;
         }
 
-        public void InsertNewLog(int reportDownloadId, DateTime logDate, string message) {
-            if (reportDownloadId > 0 && _connectionString.Length > 0) {
+        public void InsertNewLog(int reportDownloadId, DateTime logDate, string message)
+        {
+            if (reportDownloadId > 0) {
                 try {
-                    string cmdInsert = @"INSERT INTO ReportDownloadLogs (ReportDownloadId, LogDate, Message) 
-                                VALUES (@ReportDownloadId, @LogDate, @Message)";
+                    using (var session = NHibernateHelper.OpenMainSession())
+                    {
+                        using(var transaction = session.BeginTransaction())
+                        {
+                            var newLog = new ReportDownloadLogEntity
+                            {
+                                ReportDownloadId = reportDownloadId,
+                                LogDate = logDate,
+                                Message = message
+                            };
 
-                    using (var connection = new MySqlConnection(_connectionString)) {
-                        var insertCmd = new MySqlCommand(cmdInsert, connection);
-                        insertCmd.CommandTimeout = 0;
-
-                        insertCmd.Parameters.AddWithValue("@ReportDownloadId", reportDownloadId);
-                        insertCmd.Parameters.AddWithValue("@LogDate", logDate);
-                        insertCmd.Parameters.AddWithValue("@Message", message);
-
-                        connection.Open();
-                        insertCmd.ExecuteNonQuery();
+                            session.Save(newLog);
+                            transaction.Commit();
+                        }
                     }
                 }
                 catch { }

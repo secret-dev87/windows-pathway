@@ -1,4 +1,6 @@
 ﻿using MySqlConnector;
+using Pathway.Core.Entity.Main;
+using Pathway.Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +13,15 @@ namespace Pathway.Core.RemoteAnalyst.Concrete {
             _connectionString = connectionString;
         }
         public string GetSystemName(string systemSerial) {
-            string cmdText = "SELECT SystemName FROM System_Tbl WHERE SystemSerial = @SystemSerial";
             string returnValue = string.Empty;
 
-            var connection = new MySqlConnection(_connectionString);
-            var command = new MySqlCommand(cmdText, connection);
-            command.Parameters.AddWithValue("@SystemSerial", systemSerial);
-            try {
-                connection.Open();
-                var reader = command.ExecuteReader();
-                if (reader.Read()) {
-                    returnValue = reader["SystemName"].ToString();
-                }
-                reader.Close();
-            }
-            catch (Exception ex) {
-                throw new Exception(ex.Message);
-            }
-            finally {
-                connection.Close();
+            using(var session = NHibernateHelper.OpenMainSession())
+            {
+                var result = session.Query<SystemTblEntity>()
+                    .Where(x => x.SystemSerial == systemSerial)
+                    .First();
+
+                returnValue = result.SystemName.ToString();
             }
 
             return returnValue;

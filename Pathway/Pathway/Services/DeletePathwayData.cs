@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
 using log4net;
-using Pathway.Core.Abstract;
-using Pathway.Core.Concrete;
+using Pathway.Core.Helper;
 
 namespace Pathway.Core.Services {
     public class DeletePathwayData {
@@ -20,13 +19,13 @@ namespace Pathway.Core.Services {
             {
                 "PvAlerts", "PvCollects", "PvCPUBusies", "PvCPUMany",
                 "PvCPUOnce", "PvErrInfo", "PvLmStus", "PvPwyList",
-                "pvPwyMany", "PvPwyOnce", "PvScAssign", "PvScDefine",
+                "PvPwyMany", "PvPwyOnce", "PvScAssign", "PvScDefine",
                 "PvScInfo", "PvScLStat", "PvScProc", "PvScPrStus",
                 "PvScStus", "PvScTStat", "PvTcpInfo", "PvTcpStat",
                 "PvTcpStus", "PvTermInfo", "PvTermStat", "PvTermStus",
             };
 
-            DeleteHelper deleteHelper = new DeleteHelper(_connectionStringSystem);
+            DeleteHelper deleteHelper = new DeleteHelper();
             foreach (string tableToDelete in tablesToDelete) { 
                 _log.InfoFormat("Removing {0} at {1}", tableToDelete, DateTime.Now);
                 deleteHelper.DeleteData(tableToDelete, fromTimestamp, toTimestamp);

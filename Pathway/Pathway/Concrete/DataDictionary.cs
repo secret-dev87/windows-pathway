@@ -1,6 +1,10 @@
 ﻿using System.Data;
+using System.Linq;
 using MySqlConnector;
+using Newtonsoft.Json;
 using Pathway.Core.Abstract;
+using Pathway.Core.Entity.Main;
+using Pathway.Core.Helper;
 
 namespace Pathway.Core.Concrete {
     internal class DataDictionary : IDataDictionary {
@@ -11,18 +15,19 @@ namespace Pathway.Core.Concrete {
         }
 
         public DataTable GetPathwayColumns(string tableName) {
-            string cmdText = "SELECT FName, FType, FSize, SOff FROM _PvTableTableNew" +
-                             " WHERE TableName = @TableName " +
-                             "ORDER BY FSeq";
+
             var columnInfo = new DataTable();
 
-            using (var connection = new MySqlConnection(_connectionString)) {
-                var command = new MySqlCommand(cmdText, connection);
-                command.Parameters.AddWithValue("@TableName", tableName);
-                command.CommandTimeout = 0;connection.Open();
+            using(var session = NHibernateHelper.OpenMainSession())
+            {
+                var result = session.Query<PvTableTableNewEntity>()
+                    .Where(x => x.TableName == tableName)
+                    .OrderBy(x => x.FSeq)
+                    .Select(x => new { x.FName, x.FType, x.SOff })
+                    .ToList();
 
-                var adapter = new MySqlDataAdapter(command);
-                adapter.Fill(columnInfo);
+                var json = JsonConvert.SerializeObject(result);
+                columnInfo = (DataTable)JsonConvert.DeserializeObject(json, (typeof(DataTable)));
             }
 
             return columnInfo;

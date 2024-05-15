@@ -29,5 +29,28 @@ namespace Pathway.Core.Entity
         public virtual string Pathmon09 { get; set; }
         public virtual string Pathmon10 { get; set; }
         public virtual string IntervalHOrM { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvCollectEntity other = (PvCollectEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp && ToTimestamp == other.ToTimestamp)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" +
+                    ToTimestamp.ToString()
+                ).GetHashCode();
+        }
     }
 }
