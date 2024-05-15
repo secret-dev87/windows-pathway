@@ -7,11 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathway.Core", "Pathway\Pat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathway.ReportGenerator", "Pathway.ReportGenerator\Pathway.ReportGenerator.csproj", "{FF6CFB38-076D-4404-AE52-048AB2F81B1F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{44BD8E40-1ADA-4A69-9DC6-6097096C7191}"
-	ProjectSection(SolutionItems) = preProject
-		Pathway.Loader\Pathway.Loader.csproj = Pathway.Loader\Pathway.Loader.csproj
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathway.Loader", "Pathway.Loader\Pathway.Loader.csproj", "{43C5CE00-CE25-4302-95F7-545333D66ABF}"
 EndProject
 Global
