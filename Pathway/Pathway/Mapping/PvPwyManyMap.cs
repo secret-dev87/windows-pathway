@@ -17,12 +17,12 @@ namespace Pathway.Core.Mapping
                 .KeyProperty(x => x.FromTimestamp, "FromTimestamp")
                 .KeyProperty(x => x.ToTimestamp, "ToTimestamp")
                 .KeyProperty(x => x.PathwayName, "PathwayName");
-            Map(x => x.PFiller);
+            Map(x => x.PFiller).Length(1);
             Map(x => x.PwyStatusTime);
             Map(x => x.PwyProcessTime);
             Map(x => x.DeltaTime);
             Map(x => x.DeltaProcTime);
-            Map(x => x.PwyCpu);
+            Map(x => x.PwyCpu).Length(2);
             Map(x => x.CurPages);
             Map(x => x.RecQueue);
             Map(x => x.PageFaults);

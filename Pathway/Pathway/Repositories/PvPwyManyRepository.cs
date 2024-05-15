@@ -40,7 +40,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         PwyCpu = g.Key,
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime)
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value)
                     })
                     .OrderBy(PwyCpu => PwyCpu)
                     .ToList();
@@ -72,7 +72,7 @@ namespace Pathway.Core.Repositories
                     {
                         PwyCpu = g.Key.PwyCpu,
                         PathwayName = g.Key.PathwayName,
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime)
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value)
                     })
                     .OrderBy(PwyCpu => PwyCpu)
                     .ToList();
@@ -111,7 +111,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         PathwayName = g.Key,
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime)
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value)
                     })
                     .ToList();
 

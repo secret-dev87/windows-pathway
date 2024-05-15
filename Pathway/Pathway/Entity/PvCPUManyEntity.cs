@@ -15,8 +15,8 @@ namespace Pathway.Core.Entity
         public virtual int FreePages { get; set; }
         public virtual int CurrentLockedMemory { get; set; }
         public virtual int PageFaults { get; set; }
-        public virtual double MElapsedTime { get; set; }
-        public virtual double BusyTime { get; set; }
+        public virtual double? MElapsedTime { get; set; }
+        public virtual double? BusyTime { get; set; }
         public virtual int ProcessorQueueLength { get; set; }
         public virtual long Dispatches { get; set; }
         public virtual int LowPinMax { get; set; }

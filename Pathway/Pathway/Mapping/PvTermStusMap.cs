@@ -20,9 +20,9 @@ namespace Pathway.Core.Mapping
                 .KeyProperty(x => x.TermName, "TermName");
             Map(x => x.ErrorNumber);
             Map(x => x.ErrorInfo);
-            Map(x => x.TcpName);
-            Map(x => x.FileName);
-            Map(x => x.State);
+            Map(x => x.TcpName).Length(15);
+            Map(x => x.FileName).Length(35);
+            Map(x => x.State).Length(1);
         }
     }
 }

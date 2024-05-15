@@ -15,7 +15,7 @@ namespace Pathway.Core.Mapping
         {
             Table("pathwayalerts");
             Id(x => x.AlertId);
-            Map(x => x.AlertName);
+            Map(x => x.AlertName).Length(50);
         }
     }
 }

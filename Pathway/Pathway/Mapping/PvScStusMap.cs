@@ -22,7 +22,7 @@ namespace Pathway.Core.Mapping
             Map(x => x.ErrorNumber);
             Map(x => x.ErrorInfo);
             Map(x => x.ScRunning);
-            Map(x => x.FreezeState);
+            Map(x => x.FreezeState).Length(1);
         }
     }
 }

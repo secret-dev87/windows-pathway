@@ -16,25 +16,25 @@ namespace Pathway.Core.Mapping
             CompositeId()
                 .KeyProperty(x => x.FromTimestamp, "FromTimestamp")
                 .KeyProperty(x => x.ToTimestamp, "ToTimestamp");
-            Map(x => x.IntervalNn);
-            Map(x => x.PathwayCountDefined);
-            Map(x => x.PathmonCountDefined);
+            Map(x => x.IntervalNn).Length(2);
+            Map(x => x.PathwayCountDefined).Length(2);
+            Map(x => x.PathmonCountDefined).Length(2);
             Map(x => x.ActualStartTime);
             Map(x => x.ActualStopTime);
-            Map(x => x.LastTimePcHour);
-            Map(x => x.LastTimePcMinute);
-            Map(x => x.CollectionStatus);
-            Map(x => x.Pathmon01);
-            Map(x => x.Pathmon02);
-            Map(x => x.Pathmon03);
-            Map(x => x.Pathmon04);
-            Map(x => x.Pathmon05);
-            Map(x => x.Pathmon06);
-            Map(x => x.Pathmon07);
-            Map(x => x.Pathmon08);
-            Map(x => x.Pathmon09);
-            Map(x => x.Pathmon10);
-            Map(x => x.IntervalHOrM);
+            Map(x => x.LastTimePcHour).Length(2);
+            Map(x => x.LastTimePcMinute).Length(2);
+            Map(x => x.CollectionStatus).Length(8);
+            Map(x => x.Pathmon01).Length(35);
+            Map(x => x.Pathmon02).Length(35);
+            Map(x => x.Pathmon03).Length(35);
+            Map(x => x.Pathmon04).Length(35);
+            Map(x => x.Pathmon05).Length(35);
+            Map(x => x.Pathmon06).Length(35);
+            Map(x => x.Pathmon07).Length(35);
+            Map(x => x.Pathmon08).Length(35);
+            Map(x => x.Pathmon09).Length(35);
+            Map(x => x.Pathmon10).Length(35);
+            Map(x => x.IntervalHOrM).Length(1);
         }
     }
 }

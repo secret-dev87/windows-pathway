@@ -19,7 +19,7 @@ namespace Pathway.Core.Mapping
                 .KeyProperty(x => x.PathwayName, "PathwayName")
                 .KeyProperty(x => x.ScName, "ScName")
                 .KeyProperty(x => x.ScLmName, "ScLmName");
-            Map(x => x.SFiller);
+            Map(x => x.SFiller).Length(1);
             Map(x => x.QIReqCnt);
             Map(x => x.QIWaits);
             Map(x => x.QIMaxWaits);

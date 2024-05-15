@@ -57,7 +57,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         ScName = g.Key.ScName,
-                        AvgResp = g.Average(a => a.AvgResp) / responseTime
+                        AvgResp = g.Average(a => a.AvgResp.Value) / responseTime
                     })
                     .ToList();
 
@@ -89,7 +89,7 @@ namespace Pathway.Core.Repositories
                     {
                         PathwayName = g.Key.PathwayName,
                         ScName = g.Key.ScName,
-                        SumOfDeltaProcTime = g.Sum(a => a.DeltaProcTime)
+                        SumOfDeltaProcTime = g.Sum(a => a.DeltaProcTime.Value)
                     })
                     .OrderByDescending(a => a.SumOfDeltaProcTime)
                     .ToList();
@@ -173,7 +173,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => new { x.PathwayName, x.ScName })
                     .Select(g => new
                     {
-                        SumOfIsReqcnt = g.Sum(a => a.IrReqCnt),
+                        SumOfIsReqcnt = g.Sum(a => a.IrReqCnt.Value),
                         PathwayName = g.Key.PathwayName,
                         ScName = g.Key.ScName
                     });
@@ -183,7 +183,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => new { x.PathwayName, x.ScName })
                     .Select(g => new
                     {
-                        SumOfIsReqcnt2 = g.Sum(a => a.IrReqCnt),
+                        SumOfIsReqcnt2 = g.Sum(a => a.IrReqCnt.Value),
                         PathwayName = g.Key.PathwayName,
                         ScName = g.Key.ScName
                     });
@@ -228,7 +228,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => new { x.PathwayName, x.ScName, x.FromTimestamp })
                     .Select(g => new
                     {
-                        SumOfIsReqcnt = g.Sum(a => a.IrReqCnt),
+                        SumOfIsReqcnt = g.Sum(a => a.IrReqCnt.Value),
                         PathwayName = g.Key.PathwayName,
                         ScName = g.Key.ScName,
                         FromTimestamp = g.Key.FromTimestamp
@@ -239,7 +239,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => new { x.PathwayName, x.ScName })
                     .Select(g => new
                     {
-                        SumOfIsReqcnt2 = g.Sum(a => a.IrReqCnt),
+                        SumOfIsReqcnt2 = g.Sum(a => a.IrReqCnt.Value),
                         PathwayName = g.Key.PathwayName,
                         ScName = g.Key.ScName
                     });

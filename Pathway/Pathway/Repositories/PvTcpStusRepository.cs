@@ -74,7 +74,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => x.TcpCpu)
                     .Select(g => new
                     {
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime),
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value),
                         TcpCpu = g.Key
                     })
                     .OrderBy(x => x.TcpCpu)
@@ -106,7 +106,7 @@ namespace Pathway.Core.Repositories
                     {
                         TcpCpu = g.Key.TcpCpu,
                         PathwayName = g.Key.PathwayName,
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime)
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value)
                     })
                     .OrderBy(x => x.TcpCpu)
                     .ToList();
@@ -142,7 +142,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => x.PathwayName)
                     .Select(g => new
                     {
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime),
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value),
                         PathwayName = g.Key
                     })
                     .ToList();

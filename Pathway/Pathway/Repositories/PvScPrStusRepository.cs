@@ -72,7 +72,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         ScName = g.Key,
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime)
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value)
                     })
                     .ToList();
 
@@ -99,7 +99,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         ScName = g.Key.ScName,
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime) / g.Sum(a => a.DeltaTime) * 100,
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value) / g.Sum(a => a.DeltaTime.Value) * 100,
                         FromTimestamp = g.Key.FromTimestamp
                     })
                     .ToList();
@@ -132,7 +132,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         ScName = g.Key,
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime),
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value),
                         FromTimestamp = g.Key,
                     })
                     .ToList();
@@ -215,7 +215,7 @@ namespace Pathway.Core.Repositories
                     .Where(x => (x.FromTimestamp >= fromTimestamp && x.FromTimestamp < toTimestamp) &&
                                 (x.ToTimestamp > fromTimestamp && x.ToTimestamp <= toTimestamp) &&
                                 x.PathwayName == pathwayName)
-                    .Sum(a => a.DeltaProcTime);
+                    .Sum(a => a.DeltaProcTime.Value);
 
                 serverBusy = Convert.ToInt64(result);
             }
@@ -239,7 +239,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         ScPrCpu = g.Key,
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime)
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value)
                     })
                     .OrderBy(x => x.ScPrCpu)
                     .ToList();
@@ -274,7 +274,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         ScPrCpu = g.Key.ScprCpu,
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime),
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value),
                         PathwayName = g.Key.PathwayName
                     })
                     .OrderBy(x => x.ScPrCpu)
@@ -312,7 +312,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => x.PathwayName)
                     .Select(g => new
                     {
-                        TotalBusyTime = g.Sum(a => a.DeltaProcTime),
+                        TotalBusyTime = g.Sum(a => a.DeltaProcTime.Value),
                         PathwayName = g.Key
                     })
                     .ToList();
@@ -471,7 +471,7 @@ namespace Pathway.Core.Repositories
                     {
                         ScName = g.Key.ScName,
                         ScProcessName = g.Key.ScProcessName,
-                        SumofProcLinks = g.Sum(a => a.ProcLinks)
+                        SumofProcLinks = g.Sum(a => a.ProcLinks.Value)
                     });
 
                 var result = subquery

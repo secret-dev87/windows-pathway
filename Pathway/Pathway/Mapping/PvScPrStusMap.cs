@@ -28,11 +28,11 @@ namespace Pathway.Core.Mapping
             Map(x => x.ScProcessTime);
             Map(x => x.DeltaTime);
             Map(x => x.DeltaProcTime);
-            Map(x => x.ScprCpu);
+            Map(x => x.ScprCpu).Length(2);
             Map(x => x.CurPages);
             Map(x => x.RecQueue);
             Map(x => x.PageFaults);
-            Map(x => x.ProcState);
+            Map(x => x.ProcState).Length(1);
         }
     }
 }

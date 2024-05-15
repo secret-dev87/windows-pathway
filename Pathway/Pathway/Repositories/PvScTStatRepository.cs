@@ -72,9 +72,9 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => new { x.PathwayName, x.ScName })
                     .Select(g => new
                     {
-                        AvgResp = g.Average(x => x.AvgResp),
-                        MaxResp = g.Max(a => a.MaxResp),
-                        MinResp = g.Min(a => a.MinResp),
+                        AvgResp = g.Average(x => x.AvgResp.Value),
+                        MaxResp = g.Max(a => a.MaxResp.Value),
+                        MinResp = g.Min(a => a.MinResp.Value),
                         PathwayName = g.Key.PathwayName,
                         ScName = g.Key.ScName
                     })
@@ -106,7 +106,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => new { x.PathwayName, x.ScName })
                     .Select(g => new
                     {
-                        SumOfIsReqcnt = g.Sum(a => a.IrReqCnt),
+                        SumOfIsReqcnt = g.Sum(a => a.IrReqCnt.Value),
                         PathwayName = g.Key.PathwayName,
                         ScName = g.Key.ScName
                     })
@@ -202,7 +202,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => x.PathwayName)
                     .Select(g => new
                     {
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt),
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value),
                         PathwayName = g.Key
                     })
                     .First();
@@ -224,7 +224,7 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => x.PathwayName)
                     .Select(g => new
                     {
-                        TotalIrReqCnt = g.Sum(a => a.IrReqCnt),
+                        TotalIrReqCnt = g.Sum(a => a.IrReqCnt.Value),
                         PathwayName = g.Key
                     })
                     .First();
@@ -246,10 +246,10 @@ namespace Pathway.Core.Repositories
                     .GroupBy(x => x.PathwayName)
                     .Select(g => new
                     {
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt),
+                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt.Value),
                         PathwayName = g.Key,
-                        PeakReqCnt = g.Max(a => a.IsReqCnt),
-                        AverageReqCnt = g.Average(a => a.IsReqCnt)
+                        PeakReqCnt = g.Max(a => a.IsReqCnt.Value),
+                        AverageReqCnt = g.Average(a => a.IsReqCnt.Value)
                     })
                     .ToList();
 

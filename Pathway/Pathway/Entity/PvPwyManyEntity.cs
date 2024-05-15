@@ -15,7 +15,7 @@ namespace Pathway.Core.Entity
         public virtual double PwyStatusTime { get; set; }
         public virtual double PwyProcessTime { get; set; }
         public virtual double DeltaTime { get; set; }
-        public virtual double DeltaProcTime { get; set; }
+        public virtual double? DeltaProcTime { get; set; }
         public virtual string PwyCpu { get; set; }
         public virtual double CurPages { get; set; }
         public virtual double RecQueue { get; set; }

@@ -22,7 +22,7 @@ namespace Pathway.Core.Mapping
             Map(x => x.LmProcessTime);
             Map(x => x.DeltaTime);
             Map(x => x.DeltaProcTime);
-            Map(x => x.LmCpu).Length(1);
+            Map(x => x.LmCpu).Length(2);
             Map(x => x.CurPages);
             Map(x => x.RecQueue);
             Map(x => x.PageFaults);
