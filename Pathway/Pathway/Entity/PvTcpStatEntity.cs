@@ -61,5 +61,33 @@ namespace Pathway.Core.Entity
         public virtual double QCWaits { get; set; }
         public virtual double QCMaxWaits { get; set; }
         public virtual double QCAggregateWaits { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvTcpStatEntity other = (PvTcpStatEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp &&
+                ToTimestamp == other.ToTimestamp &&
+                PathwayName == other.PathwayName &&
+                TcpName == other.TcpName)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" +
+                    ToTimestamp.ToString() + "|" +
+                    PathwayName.ToString() + "|" +
+                    TcpName.ToString()
+                ).GetHashCode();
+        }
     }
 }

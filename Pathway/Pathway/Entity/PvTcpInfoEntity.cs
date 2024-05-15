@@ -46,5 +46,33 @@ namespace Pathway.Core.Entity
         public virtual string Stats { get; set; }
         public virtual string Swap { get; set; }
         public virtual string TclProg { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvTcpInfoEntity other = (PvTcpInfoEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp &&
+                ToTimestamp == other.ToTimestamp &&
+                PathwayName == other.PathwayName &&
+                TcpName == other.TcpName)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" +
+                    ToTimestamp.ToString() + "|" +
+                    PathwayName.ToString() + "|" +
+                    TcpName.ToString()
+                ).GetHashCode();
+        }
     }
 }

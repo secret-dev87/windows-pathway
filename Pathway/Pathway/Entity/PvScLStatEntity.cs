@@ -32,5 +32,31 @@ namespace Pathway.Core.Entity
         public virtual double MaxResp { get; set; }
         public virtual double MinResp { get; set; }
         public virtual double SumOfSquares { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvScLStatEntity other = (PvScLStatEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp && ToTimestamp == other.ToTimestamp && PathwayName == other.PathwayName && ScName == other.ScName && ScLmName == other.ScLmName)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" +
+                    ToTimestamp.ToString() + "|" +
+                    PathwayName.ToString() + "|" +
+                    ScName.ToString() + "|" +
+                    ScLmName.ToString()
+                ).GetHashCode();
+        }
     }
 }

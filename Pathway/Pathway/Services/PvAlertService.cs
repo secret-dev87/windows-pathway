@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Services;
 using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway.Server;

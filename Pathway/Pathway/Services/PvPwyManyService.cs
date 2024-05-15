@@ -23,9 +23,6 @@ namespace Pathway.Core.Services {
             var pathwayNames = pwyMany.GetPathwayName(fromTimestamp, toTimestamp);
             var pwyInfo = process.GetPahtywayData(processTableName, fromTimestamp, toTimestamp, pathwayNames);
 
-            //
-            //var pwyInfo = pwyName.GetPahtywayData(fromTimestamp, toTimestamp);
-
             return pwyInfo;
         }
     }

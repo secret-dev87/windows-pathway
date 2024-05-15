@@ -134,7 +134,7 @@ namespace Pathway.Core.Repositories
                     .Select(g => new
                     {
                         g.Key,
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt)
+                        TotalIsReqCnt = g.Sum(a => Convert.ToDouble(a.IsReqCnt))
                     })
                     .First();
 
@@ -148,24 +148,28 @@ namespace Pathway.Core.Repositories
         {
             var termToTcp = new Dictionary<string, long>();
 
-            using(var session = NHibernateHelper.OpenSystemSession())
+            try
             {
-                var result = session.Query<PvTermStatEntity>()
-                    .Where(x => x.FromTimestamp >= fromTimestamp &&
-                                x.ToTimestamp <= toTimestamp)
-                    .GroupBy(x => x.PathwayName)
-                    .Select(g => new
-                    {
-                        PathwayName = g.Key,
-                        TotalIsReqCnt = g.Sum(a => a.IsReqCnt)
-                    })
-                    .ToList();
-
-                foreach(var res in result)
+                using (var session = NHibernateHelper.OpenSystemSession())
                 {
-                    termToTcp.Add(res.PathwayName.ToString(), Convert.ToInt64(res.TotalIsReqCnt));
+                    var result = session.Query<PvTermStatEntity>()
+                        .Where(x => x.FromTimestamp >= fromTimestamp && x.ToTimestamp <= toTimestamp)
+                        .GroupBy(x => x.PathwayName)
+                        .Select(g => new
+                        {
+                            PathwayName = g.Key,
+                            TotalIsReqCnt = g.Sum(a => Convert.ToDouble(a.IsReqCnt))
+                        })
+                        .ToList();
+
+                    foreach (var res in result)
+                    {
+                        termToTcp.Add(res.PathwayName.ToString(), Convert.ToInt64(res.TotalIsReqCnt));
+                    }
                 }
             }
+            catch { }
+            
 
             return termToTcp;
         }

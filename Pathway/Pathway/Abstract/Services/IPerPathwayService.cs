@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway;
 
-namespace Pathway.Core.Abstract {
+namespace Pathway.Core.Abstract.Services
+{
     public interface IPerPathwayService {
         Dictionary<string, CPUDetailView> GetCPUBusyDetailFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, int ipu, string systemSerial);
         CPUSummaryView GetCPUSummaryFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, string systemSerial);

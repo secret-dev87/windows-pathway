@@ -1,11 +1,11 @@
-﻿using Pathway.Core.Abstract.Repositories;
-using Pathway.Core.Abstract.Services;
-using Pathway.Core.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Pathway.Core.Abstract.Repositories;
+using Pathway.Core.Abstract.Services;
+using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services
 {

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
-using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Services;
 using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Services;
@@ -28,13 +28,13 @@ namespace Pathway.ReportGenerator
         {
 
             string saveLocation = @"";
-            var fromTimestamp = Convert.ToDateTime("2021-02-09 00:00:00");
-            var toTimestamp = Convert.ToDateTime("2021-02-10 00:00:00");
+            var fromTimestamp = Convert.ToDateTime("2024-03-29 00:00:00");
+            var toTimestamp = Convert.ToDateTime("2024-03-31 00:00:00");
             var interval = 3600;
 
-            string connectionStringMain = "";
-            string connectionStringSystem = "";
-            var systemSerial = "080262";
+            string connectionStringMain = "server=localhost;uid=root;pwd=Dev1121!;database=pmc";
+            string connectionStringSystem = "server=localhost;uid=root;pwd=Dev1121!;database=pmc080627";
+            var systemSerial = "080627";
 
 
             //IPerPathwayServerService serverService = new PerPathwayServerService(connectionStringSystem, interval);

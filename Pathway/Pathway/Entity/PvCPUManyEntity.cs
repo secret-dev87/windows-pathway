@@ -30,5 +30,29 @@ namespace Pathway.Core.Entity
         public virtual double SendBusy { get; set; }
         public virtual double DiskCacheHits { get; set; }
         public virtual double DiskIOs { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvCPUManyEntity other = (PvCPUManyEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp && ToTimestamp == other.ToTimestamp && CpuNumber == other.CpuNumber)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" +
+                    ToTimestamp.ToString() + "|" +
+                    CpuNumber.ToString()
+                ).GetHashCode();
+        }
     }
 }

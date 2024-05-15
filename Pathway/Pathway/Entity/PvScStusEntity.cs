@@ -16,5 +16,33 @@ namespace Pathway.Core.Entity
         public virtual int ErrorInfo { get; set; }
         public virtual int ScRunning { get; set; }
         public virtual string FreezeState { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvScStusEntity other = (PvScStusEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp &&
+                ToTimestamp == other.ToTimestamp &&
+                PathwayName == other.PathwayName &&
+                ScName == other.ScName)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" +
+                    ToTimestamp.ToString() + "|" +
+                    PathwayName.ToString() + "|" +
+                    ScName.ToString()
+                ).GetHashCode();
+        }
     }
 }

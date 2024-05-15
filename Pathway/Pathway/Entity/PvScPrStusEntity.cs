@@ -27,5 +27,35 @@ namespace Pathway.Core.Entity
         public virtual double RecQueue { get; set; }
         public virtual double PageFaults { get; set; }
         public virtual string ProcState { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvScPrStusEntity other = (PvScPrStusEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp &&
+                ToTimestamp == other.ToTimestamp &&
+                PathwayName == other.PathwayName &&
+                ScName == other.ScName &&
+                ScProcessName == other.ScProcessName)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" +
+                    ToTimestamp.ToString() + "|" +
+                    PathwayName.ToString() + "|" +
+                    ScName.ToString() + "|" +
+                    ScProcessName.ToString()
+                ).GetHashCode();
+        }
     }
 }

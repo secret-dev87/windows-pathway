@@ -14,5 +14,28 @@ namespace Pathway.Core.Entity
         public virtual string Cause { get; set; }
         public virtual string Effect { get; set; }
         public virtual string Recovery { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvErrorEntity other = (PvErrorEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp && ErrorNumber == other.ErrorNumber)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" +
+                    ErrorNumber.ToString()
+                ).GetHashCode();
+        }
     }
 }

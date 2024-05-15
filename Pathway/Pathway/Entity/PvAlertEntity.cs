@@ -27,5 +27,29 @@ namespace Pathway.Core.Entity
         public virtual int ServerUnusedClass { get; set; }
         public virtual int ServerUnusedProcess { get; set; }
         public virtual int ServerErrorList { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvAlertEntity other = (PvAlertEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp && ToTimestamp == other.ToTimestamp && Pathway == other.Pathway)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" + 
+                    ToTimestamp.ToString() + "|" + 
+                    Pathway.ToString()
+                ).GetHashCode();
+        }
     }
 }

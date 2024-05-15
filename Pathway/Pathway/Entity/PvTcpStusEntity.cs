@@ -27,5 +27,33 @@ namespace Pathway.Core.Entity
         public virtual double PageFaults { get; set; }
         public virtual string Procname { get; set; }
         public virtual string State { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvTcpStusEntity other = (PvTcpStusEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp &&
+                ToTimestamp == other.ToTimestamp &&
+                PathwayName == other.PathwayName &&
+                TcpName == other.TcpName)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" +
+                    ToTimestamp.ToString() + "|" +
+                    PathwayName.ToString() + "|" +
+                    TcpName.ToString()
+                ).GetHashCode();
+        }
     }
 }

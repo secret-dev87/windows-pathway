@@ -14,5 +14,29 @@ namespace Pathway.Core.Entity
         public virtual string PFiller { get; set; }
         public virtual DateTime StartTime { get; set; }
         public virtual DateTime LastTime { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PvPwyListEntity other = (PvPwyListEntity)obj;
+
+            if (other == null)
+                return false;
+            if (FromTimestamp == other.FromTimestamp && ToTimestamp == other.ToTimestamp && PathwayName == other.PathwayName)
+                return true;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (
+                    FromTimestamp.ToString() + "|" +
+                    ToTimestamp.ToString() + "|" +
+                    PathwayName.ToString()
+                ).GetHashCode();
+        }
     }
 }
