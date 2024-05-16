@@ -166,6 +166,8 @@
     <Compile Include="Abstract\IDataDictionary.cs" />
     <Compile Include="Concrete\DataTables.cs" />
     <Compile Include="Abstract\IDataTables.cs" />
+    <Compile Include="Entity\Dynamic\CpuEntity.cs" />
+    <Compile Include="Entity\Dynamic\ProcessEntity.cs" />
     <Compile Include="Entity\Main\PvTableTableNewEntity.cs" />
     <Compile Include="Helper\MySQLHelper.cs" />
     <Compile Include="Entity\CurrentTableEntity.cs" />
@@ -239,6 +241,8 @@
     <Compile Include="Infrastructure\TcpToServer.cs" />
     <Compile Include="Infrastructure\UnusedServerProcesses.cs" />
     <Compile Include="Mapping\CurrentTableMap.cs" />
+    <Compile Include="Mapping\Dynamic\CpuMap.cs" />
+    <Compile Include="Mapping\Dynamic\ProcessMap.cs" />
     <Compile Include="Mapping\Main\PathwayAlertsMap.cs" />
     <Compile Include="Mapping\Main\PathwayAllAlertsMap.cs" />
     <Compile Include="Entity\Main\ReportDownloadLogEntity.cs" />
@@ -317,6 +321,9 @@
     <Compile Include="Services\PvCPUBusyService.cs" />
     <Compile Include="Services\PvPwyListService.cs" />
     <Compile Include="Services\PvPwyManyService.cs" />
+    <Content Include="dynamic.hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="system.hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
