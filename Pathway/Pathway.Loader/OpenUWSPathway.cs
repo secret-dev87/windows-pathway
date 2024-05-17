@@ -219,7 +219,7 @@ namespace Pathway.Loader {
 
                         try
                         {
-                            helper.InsertData(tableName, pathToCsvSystemInterval);
+                            DataTableHelper.InsertData(tableName, pathToCsvSystemInterval);
                             if (File.Exists(pathToCsvSystemInterval))
                                 File.Delete(pathToCsvSystemInterval);
                         }
@@ -274,11 +274,9 @@ namespace Pathway.Loader {
             CreatePathwayDataSet(_uwsUnzipPath, collectionInfo);
 
             _log.InfoFormat("Load Pathway Trend at: {0}", DateTime.Now);
-            long intervalInSec;
-            if (collectionInfo.IntervalType.Equals("H"))
-                intervalInSec = collectionInfo.IntervalNumber * 3600;
-            else
-                intervalInSec = collectionInfo.IntervalNumber * 60;
+            long intervalInSec = 0;
+            if (collectionInfo.IntervalType != null)
+                intervalInSec = collectionInfo.IntervalType.Equals("H") ? collectionInfo.IntervalNumber * 3600 : collectionInfo.IntervalNumber * 60;
 
             LoadPathwayTrend(intervalInSec, collectionInfo.FromTimestamp, collectionInfo.ToTimestamp);
 
@@ -841,7 +839,7 @@ namespace Pathway.Loader {
                                         //check to see if the row has more then 10000 rows.
                                         if (myDataTable.Rows.Count > 10000) {
                                             //Insert into the table.                                            
-                                            helper.InsertEntityData(tableName, myDataTable, dicInfo.Parent.FullName);
+                                            DataTableHelper.InsertEntityData(tableName, myDataTable, dicInfo.Parent.FullName);
 
                                             //Clear the myDataTable.
                                             myDataTable.Rows.Clear();
@@ -854,7 +852,7 @@ namespace Pathway.Loader {
                                     } // End For
 
                                     //Insert into the database.
-                                    helper.InsertEntityData(tableName, myDataTable, dicInfo.Parent.FullName);
+                                    DataTableHelper.InsertEntityData(tableName, myDataTable, dicInfo.Parent.FullName);
                                     DateTime afterTime = DateTime.Now;
                                     TimeSpan timeSpan = afterTime - beforeTime;
                                     _log.InfoFormat("    -Counter: {0}, Total Time in Minutes: {1}", counterName, timeSpan.TotalMinutes);
