@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using Pathway.Core.Abstract.Services;
 using Pathway.Core.Abstract.Repositories;
-using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway;
 using Pathway.Core.RemoteAnalyst.Concrete;
@@ -13,11 +12,9 @@ using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {
     public class PerPathwayService : IPerPathwayService {
-        private readonly string _connectionString = "";
         private readonly long _intervalInSec;
 
-        public PerPathwayService(string connectionString, long intervalInSec) {
-            _connectionString = connectionString;
+        public PerPathwayService(long intervalInSec) {
             _intervalInSec = intervalInSec;
         }
 
@@ -38,7 +35,7 @@ namespace Pathway.Core.Services {
                 cpuBusyDetail.Add(cpu, new CPUDetailView());
             }
 
-            var process = new Process(_connectionString);
+            var process = new Process();
             var processTableName = systemSerial + "_PROCESS_" + fromTimestamp.Year + "_" + fromTimestamp.Month + "_" + fromTimestamp.Day;
             var pathmonData = process.GetPathmonProcessBusyPerCPU(processTableName, fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])), pathwayName);
 
@@ -85,7 +82,7 @@ namespace Pathway.Core.Services {
             if (cpuElapse == 0)
                 cpuElapse = 0.01;
 
-            var process = new Process(_connectionString);
+            var process = new Process();
             var processTableName = systemSerial + "_PROCESS_" + fromTimestamp.Year + "_" + fromTimestamp.Month + "_" + fromTimestamp.Day;
             double pathmon = Convert.ToDouble(process.GetPathmonProcessBusy(processTableName, fromTimestamp.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), toTimestamp.AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])), pathwayName));
 
@@ -112,7 +109,7 @@ namespace Pathway.Core.Services {
             IPvScPrStusRepository scPrStus = new PvScPrStusRepository();
 
             var summaryInterval = new Dictionary<string, CPUSummaryView>();
-                var process = new Process(_connectionString);
+                var process = new Process();
 
             for (var dtStart = fromTimestamp; dtStart.Date < toTimestamp.Date; dtStart = IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec)) {
                 var cpuElapse = cpuMany.GetCPUElapse(dtStart.AddSeconds(_intervalInSec * (Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"]) * -1)), IntervalTypes.AddInterval(intervalTypes, dtStart, _intervalInSec).AddSeconds(_intervalInSec * Convert.ToDouble(ConfigurationManager.AppSettings["AllowTime"])));

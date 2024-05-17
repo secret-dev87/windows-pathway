@@ -8,11 +8,7 @@ using System.Text;
 
 namespace Pathway.Core.RemoteAnalyst.Concrete {
     public class ReportDownloadLogs {
-        private readonly string _connectionString;
-
-        public ReportDownloadLogs(string connectionString) {
-            _connectionString = connectionString;
-        }
+        public ReportDownloadLogs() { }
 
         public void InsertNewLog(int reportDownloadId, DateTime logDate, string message)
         {

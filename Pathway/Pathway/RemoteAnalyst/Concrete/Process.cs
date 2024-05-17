@@ -9,9 +9,7 @@ using Pathway.Core.Entity.Dynamic;
 
 namespace Pathway.Core.RemoteAnalyst.Concrete {
     class Process {
-        private string _connectionString;
-        public Process(string connectionString) {
-            _connectionString = connectionString;
+        public Process() {
         }
 
         public long GetTotalBusyTime(string processTableName, DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, int cpuNum)

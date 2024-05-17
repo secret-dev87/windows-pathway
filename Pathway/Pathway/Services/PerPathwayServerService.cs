@@ -5,18 +5,15 @@ using System.Linq;
 using System.Text;
 using Pathway.Core.Abstract.Services;
 using Pathway.Core.Abstract.Repositories;
-using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway.Server;
 using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {
     public class PerPathwayServerService : IPerPathwayServerService {
-        private readonly string _connectionString = "";
         private readonly long _intervalInSec;
 
-        public PerPathwayServerService(string connectionString, long intervalInSec) {
-            _connectionString = connectionString;
+        public PerPathwayServerService(long intervalInSec) {
             _intervalInSec = intervalInSec;
         }
         public List<ServerCPUBusyView> GetServerCPUBusyFor(DateTime fromTimestamp, DateTime toTimestamp, string pathwayName, int ipu) {

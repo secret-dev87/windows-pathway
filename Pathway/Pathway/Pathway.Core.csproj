@@ -162,10 +162,8 @@
     <Compile Include="Abstract\Repositories\ITrendPathwayHourlyRepository.cs" />
     <Compile Include="Abstract\Services\IPvCollectsService.cs" />
     <Compile Include="Abstract\Services\IPvCPUBusyService.cs" />
-    <Compile Include="Concrete\DataDictionary.cs" />
-    <Compile Include="Abstract\IDataDictionary.cs" />
-    <Compile Include="Concrete\DataTables.cs" />
-    <Compile Include="Abstract\IDataTables.cs" />
+    <Compile Include="Repositories\DataDictionaryRepository.cs" />
+    <Compile Include="Abstract\Repositories\IDataDictionaryRepository.cs" />
     <Compile Include="Entity\Dynamic\CpuEntity.cs" />
     <Compile Include="Entity\Dynamic\ProcessEntity.cs" />
     <Compile Include="Entity\Main\PvTableTableNewEntity.cs" />
@@ -300,8 +298,6 @@
     <Compile Include="Services\AllPathwayService.cs" />
     <Compile Include="Services\DataDictionaryService.cs" />
     <Compile Include="Abstract\Services\IDataDictionaryService.cs" />
-    <Compile Include="Services\DataTableService.cs" />
-    <Compile Include="Abstract\Services\IDataTableService.cs" />
     <Compile Include="Abstract\Services\IPvPwyListService.cs" />
     <Compile Include="Abstract\Services\IPvAlertService.cs" />
     <Compile Include="Abstract\Services\IPathwayAlertService.cs" />

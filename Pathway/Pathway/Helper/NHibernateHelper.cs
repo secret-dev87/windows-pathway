@@ -33,6 +33,7 @@ namespace Pathway.Core.Helper
                         .Mappings(m => {
                             m.FluentMappings.AddFromAssemblyOf<PathwayAlertsEntity>();
                             m.FluentMappings.AddFromAssemblyOf<PathwayAllAlertsEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvTableTableNewEntity>();
                             m.FluentMappings.AddFromAssemblyOf<ReportDownloadLogEntity>();
                             m.FluentMappings.AddFromAssemblyOf<SystemTblEntity>();
                         })

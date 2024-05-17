@@ -9,9 +9,7 @@ using System.Text;
 
 namespace Pathway.Core.RemoteAnalyst.Concrete {
     public class CPU {
-        private string _connectionString;
-        public CPU(string connectionString) {
-            _connectionString = connectionString;
+        public CPU() {
         }
 
         public string GetLatestTableName() {            
