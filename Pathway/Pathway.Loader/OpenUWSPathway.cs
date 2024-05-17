@@ -47,11 +47,11 @@ namespace Pathway.Loader {
             try
             {
                 
-                var cpu = new CPU(_connectionStringSystem);
+                var cpu = new CPU();
                 var cpuTableName = cpu.GetLatestTableName();
                 var ipu = cpu.GetIPU(cpuTableName);
 
-                IAllPathwayService service = new AllPathwayService(_connectionStringSystem, intervalInSec);
+                IAllPathwayService service = new AllPathwayService(intervalInSec);
 
                 _log.InfoFormat("collectionInfo.FromTimestamp: {0} ToTimestamp: {1} ", fromTimestamp, toTimestamp);
                 _log.InfoFormat("intervalInSec: {0}, AllowTime: {1} ResponseTime: {2} ", intervalInSec,
@@ -478,6 +478,8 @@ namespace Pathway.Loader {
             var tempInt = new byte[4];
             var tempLong = new byte[8];
 
+            var helper = new MySQLHelper(_connectionStringSystem);
+
             //SampleInfo values.
             //string systemName = UwsSystemName;
             //string systemSerial = UWSSerialNumber;
@@ -515,7 +517,7 @@ namespace Pathway.Loader {
                                 _log.InfoFormat("    -Table Name: {0}", tableName);
                                 //Get table name according to data format.
                                 //Get Column type into the List.
-                                IDataDictionaryService dictionaryService = new DataDictionaryService(_connectionStringMain);
+                                IDataDictionaryService dictionaryService = new DataDictionaryService();
                                 IList<ColumnInfoView> columnInfoList = dictionaryService.GetPathwayColumnsFor(tableName);
 
                                 int recordLenth = index.FReclen;
@@ -838,10 +840,8 @@ namespace Pathway.Loader {
 
                                         //check to see if the row has more then 10000 rows.
                                         if (myDataTable.Rows.Count > 10000) {
-                                            //Insert into the table.
-
-                                            IDataTableService insertTables = new DataTableService(_connectionStringSystem);
-                                            insertTables.InsertEntityDataFor(tableName, myDataTable, dicInfo.Parent.FullName);
+                                            //Insert into the table.                                            
+                                            helper.InsertEntityData(tableName, myDataTable, dicInfo.Parent.FullName);
 
                                             //Clear the myDataTable.
                                             myDataTable.Rows.Clear();
@@ -854,8 +854,7 @@ namespace Pathway.Loader {
                                     } // End For
 
                                     //Insert into the database.
-                                    IDataTableService tables = new DataTableService(_connectionStringSystem);
-                                    tables.InsertEntityDataFor(tableName, myDataTable, dicInfo.Parent.FullName);
+                                    helper.InsertEntityData(tableName, myDataTable, dicInfo.Parent.FullName);
                                     DateTime afterTime = DateTime.Now;
                                     TimeSpan timeSpan = afterTime - beforeTime;
                                     _log.InfoFormat("    -Counter: {0}, Total Time in Minutes: {1}", counterName, timeSpan.TotalMinutes);
@@ -995,7 +994,7 @@ namespace Pathway.Loader {
             List<string> pathwayList = pvPwyList.GetPathwayNamesFor(collectionInfo.FromTimestamp, collectionInfo.ToTimestamp);
 
             //For each Pathway Name, Loop throuth the From and To Timestamp using Interval and insert empty data.
-            IPvAlertService alert = new PvAlertService(_connectionStringSystem, 0);
+            IPvAlertService alert = new PvAlertService(0);
             foreach (string pathway in pathwayList) {
                 for (DateTime startTime = collectionInfo.FromTimestamp;
                     startTime < collectionInfo.ToTimestamp;
@@ -1052,7 +1051,7 @@ namespace Pathway.Loader {
             else
                 intervalInSec = collectionInfo.IntervalNumber * 60;
 
-            IAllPathwayService service = new AllPathwayService(_connectionStringSystem, intervalInSec);
+            IAllPathwayService service = new AllPathwayService(intervalInSec);
             var summary = service.GetCPUSummaryFor(collectionInfo.FromTimestamp, collectionInfo.ToTimestamp, UWSSerialNumber);
 
             IPvCPUBusyService cpuBusyService = new PvCPUBusyService();
@@ -1086,13 +1085,13 @@ namespace Pathway.Loader {
             };
 
             //For each Pathway Name, Loop throuth the From and To Timestamp using Interval and insert empty data.
-            IPvAlertService alert = new PvAlertService(_connectionStringSystem, 0);
+            IPvAlertService alert = new PvAlertService(0);
             var collectionAlerts = alert.GetCollectionAlertFor(alertList, collectionInfo.FromTimestamp, collectionInfo.ToTimestamp);
             return collectionAlerts;
         }
 
         private void UpdatePvPwymany(CollectionInfo collectionInfo) {
-            var pwyManyService = new PvPwyManyService(_connectionStringSystem);
+            var pwyManyService = new PvPwyManyService();
             var pathways = pwyManyService.GetPvPwyMany(collectionInfo.FromTimestamp, collectionInfo.ToTimestamp, UWSSerialNumber);
 
             foreach (var pvPwyManyView in pathways) {
@@ -1103,7 +1102,7 @@ namespace Pathway.Loader {
             var delete = true;
 
             try {
-                var clean = new DeletePathwayData(_log, _connectionStringSystem);
+                var clean = new DeletePathwayData(_log);
                 clean.DelteAllPathwayDataFor(fromTimestamp, toTimestamp);
             }
             catch (Exception ex) {

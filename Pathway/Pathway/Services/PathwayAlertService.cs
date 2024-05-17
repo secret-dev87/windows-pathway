@@ -2,17 +2,12 @@
 using System.Linq;
 using Pathway.Core.Abstract.Services;
 using Pathway.Core.Abstract.Repositories;
-using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {
     public class PathwayAlertService : IPathwayAlertService {
-        private readonly string _connectionString = "";
-
-        public PathwayAlertService(string connectionString) {
-            _connectionString = connectionString;
-        }
+        public PathwayAlertService() { }
 
         public List<string> GetAlertsFor() {
             IPathwayAlertsRepository alerts = new PathwayAlertsRepository();

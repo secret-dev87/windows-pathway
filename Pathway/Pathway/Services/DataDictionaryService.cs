@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Pathway.Core.Abstract;
+using Pathway.Core.Abstract.Repositories;
 using Pathway.Core.Abstract.Services;
-using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
+using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {
     public class DataDictionaryService : IDataDictionaryService {
-        private readonly string _connectionString = "";
-
-        public DataDictionaryService(string connectionString) {
-            _connectionString = connectionString;
-        }
+        public DataDictionaryService() { }
 
         public IList<ColumnInfoView> GetPathwayColumnsFor(string tableName) {
-            IDataDictionary dataDictionary = new DataDictionary(_connectionString);
+            IDataDictionaryRepository dataDictionary = new DataDictionaryRepository();
 
             var columnInfo = dataDictionary.GetPathwayColumns(tableName);
             return (from DataRow dr in columnInfo.Rows

@@ -9,6 +9,8 @@ using Pathway.Core.Entity;
 using FluentNHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Pathway.Core.Entity.Main;
+using Pathway.Core.Entity.Dynamic;
+using NHibernate.Mapping;
 
 namespace Pathway.Core.Helper
 {
@@ -16,6 +18,7 @@ namespace Pathway.Core.Helper
     {
         private static ISessionFactory _mainSessionFactory;
         private static ISessionFactory _systemSessionFactory;
+        private static ISessionFactory _dynamicSessionFactory;
 
         private static ISessionFactory MainSessionFactory
         {
@@ -30,6 +33,7 @@ namespace Pathway.Core.Helper
                         .Mappings(m => {
                             m.FluentMappings.AddFromAssemblyOf<PathwayAlertsEntity>();
                             m.FluentMappings.AddFromAssemblyOf<PathwayAllAlertsEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvTableTableNewEntity>();
                             m.FluentMappings.AddFromAssemblyOf<ReportDownloadLogEntity>();
                             m.FluentMappings.AddFromAssemblyOf<SystemTblEntity>();
                         })
@@ -86,6 +90,49 @@ namespace Pathway.Core.Helper
             }
         }
 
+        private static ISessionFactory DynamicSessionFactory(string tableName)
+        {
+            var configuration = new Configuration();
+            configuration.Configure("dynamic.hibernate.cfg.xml");
+
+            var fluentConfiguration = Fluently.Configure(configuration)
+                .Mappings(m =>
+                {
+                    m.FluentMappings.AddFromAssemblyOf<CpuEntity>();
+                    m.FluentMappings.AddFromAssemblyOf<ProcessEntity>();
+                })
+                .ProxyFactoryFactory("NHibernate.Bytecode.DefaultProxyFactoryFactory, NHibernate");
+
+            var config = fluentConfiguration.BuildConfiguration();
+
+            if (tableName.ToLower().Contains("_cpu_"))
+            {
+                foreach (PersistentClass persistentClass in config.ClassMappings)
+                {
+                    if (persistentClass.MappedClass == typeof(CpuEntity))
+                    {
+                        persistentClass.Table.Name = tableName;
+                    }
+                }
+            }
+            
+            if (tableName.ToLower().Contains("_process_"))
+            {
+                foreach (PersistentClass persistentClass in config.ClassMappings)
+                {
+                    if (persistentClass.MappedClass == typeof(ProcessEntity))
+                    {
+                        persistentClass.Table.Name = tableName;
+                    }
+                }
+            }
+
+            _dynamicSessionFactory = config.BuildSessionFactory();
+                    
+            return _dynamicSessionFactory;
+        }
+
+
         public static ISession OpenMainSession()
         {
             return MainSessionFactory.OpenSession();
@@ -94,6 +141,11 @@ namespace Pathway.Core.Helper
         public static ISession OpenSystemSession()
         {
             return SystemSessionFactory.OpenSession();
+        }
+
+        public static ISession OpenDynamicSession(string tableName)
+        {
+            return DynamicSessionFactory(tableName).OpenSession();
         }
     }
 }

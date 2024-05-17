@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
 using Pathway.Core.Abstract.Services;
-using Pathway.Core.Concrete;
-using Pathway.Core.Infrastructure;
 using Pathway.Core.Services;
 
 namespace Pathway.ReportGenerator

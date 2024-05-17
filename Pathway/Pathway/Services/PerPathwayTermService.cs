@@ -6,18 +6,15 @@ using System.Text;
 using System.Windows.Forms;
 using Pathway.Core.Abstract.Services;
 using Pathway.Core.Abstract.Repositories;
-using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway.Term;
 using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {
     public class PerPathwayTermService : IPerPathwayTermService {
-        private readonly string _connectionString = "";
         private readonly long _intervalInSec;
 
-        public PerPathwayTermService(string connectionString, long intervalInSec) {
-            _connectionString = connectionString;
+        public PerPathwayTermService(long intervalInSec) {
             _intervalInSec = intervalInSec;
         }
 

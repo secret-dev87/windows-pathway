@@ -5,20 +5,16 @@ using System.Linq;
 using System.Text;
 using Pathway.Core.Abstract.Services;
 using Pathway.Core.Abstract.Repositories;
-using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway.Server;
 using Pathway.Core.Infrastructure.PerPathway.Tcp;
-using Pathway.Core.Infrastructure.PerPathway.Term;
 using Pathway.Core.Repositories;
 
 namespace Pathway.Core.Services {
     public class PerPathwayTcpService : IPerPathwayTcpService {
-        private readonly string _connectionString = "";
         private readonly long _intervalInSec;
-        public PerPathwayTcpService(string connectionString, long intervalInSec)
+        public PerPathwayTcpService(long intervalInSec)
         {
-            _connectionString = connectionString;
             _intervalInSec = intervalInSec;
         }
 
