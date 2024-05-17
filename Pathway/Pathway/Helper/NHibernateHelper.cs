@@ -70,6 +70,7 @@ namespace Pathway.Core.Helper
                             m.FluentMappings.AddFromAssemblyOf<PvScDefineEntity>();
                             m.FluentMappings.AddFromAssemblyOf<PvScInfoEntity>();
                             m.FluentMappings.AddFromAssemblyOf<PvScLStatEntity>();
+                            m.FluentMappings.AddFromAssemblyOf<PvScParamEntity>();
                             m.FluentMappings.AddFromAssemblyOf<PvScProcEntity>();
                             m.FluentMappings.AddFromAssemblyOf<PvScPrStusEntity>();
                             m.FluentMappings.AddFromAssemblyOf<PvScStusEntity>();

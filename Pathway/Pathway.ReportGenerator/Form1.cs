@@ -87,7 +87,7 @@ namespace Pathway.ReportGenerator
 
 
                 //5. Is this out put correct?
-              //var errorLists = alertService.GetServerErrorListSubFor(fromTimestamp, toTimestamp, "$RM1", Enums.IntervalTypes.Hourly, null);
+                //var errorLists = alertService.GetServerErrorListSubFor(fromTimestamp, toTimestamp, "$RM1", Enums.IntervalTypes.Hourly, null);
 
 
                 /*IPvScPrStus pvScPrStus = new PvScPrStus(connectionStringSystem);
