@@ -8,9 +8,7 @@ using System.Text;
 
 namespace Pathway.Core.RemoteAnalyst.Concrete {
     public class SystemTbl {
-        private string _connectionString;
-        public SystemTbl(string connectionString) {
-            _connectionString = connectionString;
+        public SystemTbl() {
         }
         public string GetSystemName(string systemSerial) {
             string returnValue = string.Empty;

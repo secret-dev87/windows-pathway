@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Pathway.Core.Abstract;
 using Pathway.Core.Abstract.Repositories;
-using Pathway.Core.Concrete;
 using Pathway.Core.Entity;
 using Pathway.Core.Helper;
 using Pathway.Core.Infrastructure;

@@ -47,10 +47,10 @@ namespace Pathway.ReportGenerator
             _saveLocation = saveLocation + @"\Pathway_" + DateTime.Now.Ticks;
             _systemSerial = systemSerial;
 
-            var systemTbl = new SystemTbl(connectionString);
+            var systemTbl = new SystemTbl();
             _systemName = systemTbl.GetSystemName(systemSerial).Replace('\\', ' ').Trim();
 
-            var cpu = new CPU(connectionStringSystem);
+            var cpu = new CPU();
             var tableName = cpu.GetLatestTableName();
             _ipu = cpu.GetIPU(tableName);
             _reportDownloadId = reportDownloadId;
@@ -126,7 +126,7 @@ namespace Pathway.ReportGenerator
 
         public string CreateExcelReport()
         {
-            IPathwayAlertService alertListService = new PathwayAlertService(_connectionStringMain);
+            IPathwayAlertService alertListService = new PathwayAlertService();
             var alertList = alertListService.GetAllAlertsFor();
             //GeneratePerPathwayDetailMultiDays(alertList);
             //GenerateAllPathwayCollection(alertList);
@@ -166,7 +166,7 @@ namespace Pathway.ReportGenerator
             else if (_pathwayList.Count > 1 && !isMultiDays)
             {
                 _log.InfoFormat("Calling GenerateAllPathwayCollection at: {0}", DateTime.Now);
-                _reportDownloadLogs = new ReportDownloadLogs(_connectionStringMain);
+                _reportDownloadLogs = new ReportDownloadLogs();
                 _reportDownloadLogs.InsertNewLog(_reportDownloadId, DateTime.Now, "Generating Collection report");
                 GenerateAllPathwayCollection(alertList, isMultiDays);
             }
@@ -178,7 +178,7 @@ namespace Pathway.ReportGenerator
                 //GeneratePerPathwayDetailMultiDays(alertList);
 
                 _log.InfoFormat("Calling GenerateAllPathwayCollection at: {0}", DateTime.Now);
-                _reportDownloadLogs = new ReportDownloadLogs(_connectionStringMain);
+                _reportDownloadLogs = new ReportDownloadLogs();
                 _reportDownloadLogs.InsertNewLog(_reportDownloadId, DateTime.Now, "Generating Collection report");
                 GenerateAllPathwayCollection(alertList, isMultiDays);
             }
@@ -187,7 +187,7 @@ namespace Pathway.ReportGenerator
 
         public string CreateExcelAlertReport()
         {
-            IPathwayAlertService alertListService = new PathwayAlertService(_connectionStringMain);
+            IPathwayAlertService alertListService = new PathwayAlertService();
             var alertList = alertListService.GetAlertsFor();
             //var alertList = new List<string> { "ServerPendingClass", "ServerPendingProcess", "ServerQueueTCP", "ServerQueueLinkmon", "ServerUnusedClass", "ServerUnusedProcess", "ServerMaxLinks", "CheckDirectoryOn", "HighDynamicServers", "ServerErrorList" };
 
@@ -201,10 +201,10 @@ namespace Pathway.ReportGenerator
             ExcelPackage xlWorkPackage = new ExcelPackage();
             var worksheetCount = 1;
 
-            IPvAlertService alertService = new PvAlertService(_connectionStringSystem, _intervalInSec);
+            IPvAlertService alertService = new PvAlertService(_intervalInSec);
 
 
-            _reportDownloadLogs = new ReportDownloadLogs(_connectionStringMain);
+            _reportDownloadLogs = new ReportDownloadLogs();
             _reportDownloadLogs.InsertNewLog(_reportDownloadId, DateTime.Now, "Fetching list of Alerts");
             var excelChart = new ExcelChartAlert(_reportDownloadId, _reportDownloadLogs, _log);
             //Create Collection.
@@ -376,7 +376,7 @@ namespace Pathway.ReportGenerator
                     else
                         nextWorksheet = "";
 
-                    IPerPathwayServerService serverService = new PerPathwayServerService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayServerService serverService = new PerPathwayServerService(_intervalInSec);
                     var pendingClass = serverService.GetServerPendingClassIntervalFor(_fromTimestamp, _toTimestamp, pathway.Key, Enums.IntervalTypes.Daily, datesWithData);
                     excelChart.InsertWorksheetPendingClassInterval(xlWorkPackage.Workbook, worksheetCount, pathway.Key, pendingClass, pathway.Key + PathwayCollectionServerPendingClass, _saveLocation,
                                                                         proviousPathway, "", nextWorksheet, nextPathway,
@@ -412,7 +412,7 @@ namespace Pathway.ReportGenerator
                     else
                         nextWorksheet = "";
 
-                    IPerPathwayServerService serverService = new PerPathwayServerService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayServerService serverService = new PerPathwayServerService(_intervalInSec);
                     var unusedClass = serverService.GetServerPendingProcessIntervalFor(_fromTimestamp, _toTimestamp, pathway.Key, Enums.IntervalTypes.Daily, datesWithData);
                     excelChart.InsertWorksheetPendingProcessInterval(xlWorkPackage.Workbook, worksheetCount, pathway.Key, unusedClass, pathway.Key + PathwayCollectionServerPendingProcess, _saveLocation,
                                                                         proviousPathway, previousWorksheet, nextWorksheet, nextPathway,
@@ -431,7 +431,7 @@ namespace Pathway.ReportGenerator
                     else if (pathway.Value.ServerPendingClass > 0)
                         previousWorksheet = pathway.Key + PathwayCollectionServerPendingClass;
 
-                    IPerPathwayServerService serverService = new PerPathwayServerService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayServerService serverService = new PerPathwayServerService(_intervalInSec);
                     var queueTcp = serverService.GetServerQueueTCPIntervalFor(_fromTimestamp, _toTimestamp, pathway.Key, Enums.IntervalTypes.Daily, datesWithData);
                     var subDatas = alertService.GetQueueTCPSubFor(_fromTimestamp, _toTimestamp, pathway.Key, Enums.IntervalTypes.Daily, datesWithData);
 
@@ -519,7 +519,7 @@ namespace Pathway.ReportGenerator
                             previousWorksheet = pathway.Key + PathwayCollectionServerPendingClass;
                     }
 
-                    IPerPathwayServerService serverService = new PerPathwayServerService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayServerService serverService = new PerPathwayServerService(_intervalInSec);
                     var queueLinkmon = serverService.GetServerQueueLinkmonIntervalFor(_fromTimestamp, _toTimestamp, pathway.Key, Enums.IntervalTypes.Daily, datesWithData);
                     var subDatas = alertService.GetQueueLinkmonSubFor(_fromTimestamp, _toTimestamp, pathway.Key, Enums.IntervalTypes.Daily, datesWithData);
                     //Check Next worksheet.
@@ -616,7 +616,7 @@ namespace Pathway.ReportGenerator
 
                     //There is no detail for Unused Class
                     var excelChartServer = new ExcelChartServer(_reportDownloadId, _reportDownloadLogs, _log);
-                    IPerPathwayServerService serverService = new PerPathwayServerService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayServerService serverService = new PerPathwayServerService(_intervalInSec);
                     var unusedClass = serverService.GetServerUnusedClassesIntervalFor(_fromTimestamp, _toTimestamp, pathway.Key, Enums.IntervalTypes.Daily, datesWithData);
                     excelChartServer.InsertWorksheetUnusedClassInterval(xlWorkPackage.Workbook, worksheetCount, pathway.Key, unusedClass, pathway.Key + PathwayCollectionServerUnuseClass, _saveLocation,
                                                                         proviousPathway, previousWorksheet, nextWorksheet, nextPathway,
@@ -843,7 +843,7 @@ namespace Pathway.ReportGenerator
             //Create worksheet with Error information.
             if (errorList.Count > 0)
             {
-                IPathwayAlertService alertListService = new PathwayAlertService(_connectionStringMain);
+                IPathwayAlertService alertListService = new PathwayAlertService();
                 var errorLists = alertListService.GetErrorInfoFor(errorList);
 
                 excelChart.InsertWorksheetErrorInfo(xlWorkPackage.Workbook, worksheetCount, errorLists.OrderBy(x => x.ErrorNumber).ToList(), _saveLocation, CollectionAlerts);
@@ -911,7 +911,7 @@ namespace Pathway.ReportGenerator
             int worksheetCount = 1;
 
             //IPvAlertService alertService = new PvAlertService(_connectionStringSystem, _intervalInSec);
-            IAllPathwayService service = new AllPathwayService(_connectionStringSystem, _intervalInSec);
+            IAllPathwayService service = new AllPathwayService(_intervalInSec);
 
             var dateList = new List<DateTime>();
             //Get the list of days that has a data.
@@ -1145,7 +1145,7 @@ namespace Pathway.ReportGenerator
             _log.Info("********************************************************************");
             _log.InfoFormat("Starting GeneratePerPathwayDetailMultiDays at: {0}", DateTime.Now);
 
-            _reportDownloadLogs = new ReportDownloadLogs(_connectionStringMain);
+            _reportDownloadLogs = new ReportDownloadLogs();
             foreach (var list in _pathwayList)
             {
 
@@ -1217,8 +1217,8 @@ namespace Pathway.ReportGenerator
 
                     #region Basic Data
 
-                    IPvAlertService alertService = new PvAlertService(_connectionStringSystem, _intervalInSec);
-                    IPerPathwayService service = new PerPathwayService(_connectionStringSystem, _intervalInSec);
+                    IPvAlertService alertService = new PvAlertService(_intervalInSec);
+                    IPerPathwayService service = new PerPathwayService(_intervalInSec);
 
                     _log.InfoFormat("Calling Basic Data (CPU Busy Detail) at: {0}", DateTime.Now);
 
@@ -1241,7 +1241,7 @@ namespace Pathway.ReportGenerator
 
                     #region SERVER
 
-                    IPerPathwayServerService serverService = new PerPathwayServerService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayServerService serverService = new PerPathwayServerService(_intervalInSec);
 
                     _log.InfoFormat("Calling SERVER (CPU BUSY) at: {0}", DateTime.Now);
 
@@ -1441,7 +1441,7 @@ namespace Pathway.ReportGenerator
 
                     #region TCP
 
-                    IPerPathwayTcpService tcpService = new PerPathwayTcpService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayTcpService tcpService = new PerPathwayTcpService(_intervalInSec);
                     _log.InfoFormat("Calling TCP (TRANSACTION) at: {0}", DateTime.Now);
 
 
@@ -1544,7 +1544,7 @@ namespace Pathway.ReportGenerator
 
                     _log.InfoFormat("Calling TCP (TERM Top 20) at: {0}", DateTime.Now);
 
-                    IPerPathwayTermService termService = new PerPathwayTermService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayTermService termService = new PerPathwayTermService(_intervalInSec);
                     var termTop20 = termService.GetTermTop20(_fromTimestamp, _toTimestamp, list, Enums.IntervalTypes.Daily);
                     _log.InfoFormat("TERM (Term Top 20) Count: {0}", termTop20.Count);
 
@@ -1770,7 +1770,7 @@ namespace Pathway.ReportGenerator
             _log.Info("********************************************************************");
             _log.InfoFormat("Starting GeneratePerPathwayDetailDailyInParallel at: {0}", DateTime.Now);
 
-            _reportDownloadLogs = new ReportDownloadLogs(_connectionStringMain);
+            _reportDownloadLogs = new ReportDownloadLogs();
             var reportCount = 1;
 
             foreach (var list in _pathwayList)
@@ -1832,8 +1832,8 @@ namespace Pathway.ReportGenerator
 
                     #region Basic Data
 
-                    IPvAlertService alertService = new PvAlertService(_connectionStringSystem, _intervalInSec);
-                    IPerPathwayService service = new PerPathwayService(_connectionStringSystem, _intervalInSec);
+                    IPvAlertService alertService = new PvAlertService(_intervalInSec);
+                    IPerPathwayService service = new PerPathwayService(_intervalInSec);
 
                     _log.InfoFormat("Calling Basic (CPU Detail Per Pathway) at {0}", DateTime.Now);
 
@@ -1860,7 +1860,7 @@ namespace Pathway.ReportGenerator
 
                     #region SERVER
 
-                    IPerPathwayServerService serverService = new PerPathwayServerService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayServerService serverService = new PerPathwayServerService(_intervalInSec);
 
                     _log.InfoFormat("Calling SERVER (CPU BUSY) at {0}", DateTime.Now);
 
@@ -2079,7 +2079,7 @@ namespace Pathway.ReportGenerator
                     _log.InfoFormat("Calling TCP (TRANSACTION) at {0}", DateTime.Now);
 
                     _reportDownloadLogs.InsertNewLog(_reportDownloadId, DateTime.Now, "    Generating TCP (TRANSACTION)");
-                    IPerPathwayTcpService tcpService = new PerPathwayTcpService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayTcpService tcpService = new PerPathwayTcpService(_intervalInSec);
                     //TRANSACTION
                     var tcpTransaction = tcpService.GetTcpTransactionFor(fromTimestamp, toTimestamp, list);
                     _log.InfoFormat("TCP (TRANSACTION) Count: {0}",  tcpTransaction.Count);
@@ -2190,7 +2190,7 @@ namespace Pathway.ReportGenerator
                     _log.InfoFormat("Calling TERM (Term Top 20) at {0}", DateTime.Now);
 
                     _reportDownloadLogs.InsertNewLog(_reportDownloadId, DateTime.Now, "    Generating TERM (Term Top 20)");
-                    IPerPathwayTermService termService = new PerPathwayTermService(_connectionStringSystem, _intervalInSec);
+                    IPerPathwayTermService termService = new PerPathwayTermService(_intervalInSec);
                     var termTop20 = termService.GetTermTop20(fromTimestamp, toTimestamp, list, Enums.IntervalTypes.Hourly);
                     _log.InfoFormat("TERM (Term Top 20) Count: {0}",  termTop20.Count);
 

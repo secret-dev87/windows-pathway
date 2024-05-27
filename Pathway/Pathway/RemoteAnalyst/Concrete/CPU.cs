@@ -1,5 +1,6 @@
 ﻿using MySqlConnector;
 using Pathway.Core.Entity;
+using Pathway.Core.Entity.Dynamic;
 using Pathway.Core.Helper;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,7 @@ using System.Text;
 
 namespace Pathway.Core.RemoteAnalyst.Concrete {
     public class CPU {
-        private string _connectionString;
-        public CPU(string connectionString) {
-            _connectionString = connectionString;
+        public CPU() {
         }
 
         public string GetLatestTableName() {            
@@ -29,20 +28,20 @@ namespace Pathway.Core.RemoteAnalyst.Concrete {
             return tableName;
         }
 
-        public int GetIPU(string tableName) {
-            var cmdText = "SELECT Ipus FROM " + tableName + " LIMIT 1;";
-
+        public int GetIPU(string tableName)
+        {
             int ipuNum = 1;
-            using (var connection = new MySqlConnection(_connectionString)) {
-                var command = new MySqlCommand(cmdText, connection);
 
-                connection.Open();
-                MySqlDataReader reader = command.ExecuteReader();
+            using(var session = NHibernateHelper.OpenDynamicSession(tableName))
+            {
+                var result = session.Query<CpuEntity>()
+                    .Select(x => x.Ipus)
+                    .Take(1)
+                    .ToList();
 
-                if (reader.Read()) {
-                    ipuNum = Convert.ToInt32(reader["Ipus"]);
-                }
+                ipuNum = Convert.ToInt32(result[0]);
             }
+
             return ipuNum;
         }
     }

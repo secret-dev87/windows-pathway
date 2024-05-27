@@ -5,12 +5,10 @@ using Pathway.Core.Helper;
 
 namespace Pathway.Core.Services {
     public class DeletePathwayData {
-        private readonly string _connectionStringSystem = "";
         private readonly ILog _log;
 
-        public DeletePathwayData(ILog log, string connectionStringSystem) {
+        public DeletePathwayData(ILog log) {
             _log = log;
-            _connectionStringSystem = connectionStringSystem;
         }
 
         public void DelteAllPathwayDataFor(DateTime fromTimestamp, DateTime toTimestamp) {

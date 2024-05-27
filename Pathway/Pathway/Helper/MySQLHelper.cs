@@ -1,5 +1,12 @@
-﻿using MySqlConnector;
-using System;
+﻿using System;
+using System.Data;
+using System.Text;
+using System.IO;
+using MySqlConnector;
+using Newtonsoft.Json;
+using NHibernate.Mapping;
+using Pathway.Core.Entity;
+using System.Collections.Generic;
 
 namespace Pathway.Core.Helper
 {
@@ -8,56 +15,21 @@ namespace Pathway.Core.Helper
         public MySQLHelper(string mySQLConnectionString) {
             _mySQLConnectionString = mySQLConnectionString;
         }
+
         public bool CheckMySqlTable(string databaseName, string tableName) {
-            string cmdText = "SELECT COUNT(*) AS TableName FROM INFORMATION_SCHEMA.tables WHERE TABLE_SCHEMA = @DatabaseName AND table_name = @TableName";
-            bool exists = true;
-            try {
-                using (var mySqlConnection = new MySqlConnection(_mySQLConnectionString)) {
-                    mySqlConnection.Open();
-                    var cmd = new MySqlCommand(cmdText, mySqlConnection);
-                    cmd.Parameters.AddWithValue("@DatabaseName", databaseName);
-                    cmd.Parameters.AddWithValue("@TableName", tableName);
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read()) {
-                        if (Convert.ToInt16(reader["TableName"]).Equals(0)) {
-                            exists = false;
-                        }
-                    }
-                }
+            using(var session = NHibernateHelper.OpenSystemSession())
+            {
+                var sql = "SELECT COUNT(*) AS TableName FROM INFORMATION_SCHEMA.tables WHERE TABLE_SCHEMA = :DatabaseName AND table_name = :TableName";
+
+                var result = session.CreateSQLQuery(sql)
+                    .SetParameter("DatabaseName", databaseName)
+                    .SetParameter("TableName", tableName)
+                    .UniqueResult();
+
+                return result != null;
             }
-            catch (Exception ex) {
-                exists = false;
-            }
-            return exists;
         }
-        public int InsertData(string tableName, string fileLocation) {
-            int inserted = 0;
-            try {
-                using (var mySqlConnection = new MySqlConnection(_mySQLConnectionString)) {
-                    mySqlConnection.Open();
-                    /*
-                     * Explicitly added Local=true to allow Bulk loading
-                     * https://dev.mysql.com/doc/connector-net/en/connector-net-programming-bulk-loader.html
-                     */
-                    var bl = new MySqlBulkLoader(mySqlConnection)
-                    {
-                        Local = true,
-                        TableName = tableName,
-                        FieldTerminator = "|",
-                        LineTerminator = "\r\n",
-                        FileName = fileLocation,
-                        NumberOfLinesToSkip = 0,
-                        Timeout = 0,
-                        ConflictOption = MySqlBulkLoaderConflictOption.Replace
-                    };
-                    inserted = bl.Load();
-                }
-            }
-            catch (Exception ex) {
-                throw new Exception(ex.Message);
-            }
-            return inserted;
-        }
+
         public string FindDatabaseName(string mysqlConnectionString) {
             string databaseName = "";
             string[] tempNames = mysqlConnectionString.Split(';');
@@ -135,5 +107,5 @@ namespace Pathway.Core.Helper
 				command.ExecuteNonQuery();
 			}
 		}
-	}
+    }
 }

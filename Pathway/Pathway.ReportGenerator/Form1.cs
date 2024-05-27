@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
 using Pathway.Core.Abstract.Services;
-using Pathway.Core.Concrete;
-using Pathway.Core.Infrastructure;
 using Pathway.Core.Services;
 
 namespace Pathway.ReportGenerator
@@ -89,7 +87,7 @@ namespace Pathway.ReportGenerator
 
 
                 //5. Is this out put correct?
-              //var errorLists = alertService.GetServerErrorListSubFor(fromTimestamp, toTimestamp, "$RM1", Enums.IntervalTypes.Hourly, null);
+                //var errorLists = alertService.GetServerErrorListSubFor(fromTimestamp, toTimestamp, "$RM1", Enums.IntervalTypes.Hourly, null);
 
 
                 /*IPvScPrStus pvScPrStus = new PvScPrStus(connectionStringSystem);

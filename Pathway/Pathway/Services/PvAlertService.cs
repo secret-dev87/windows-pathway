@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using Pathway.Core.Abstract.Services;
-using Pathway.Core.Concrete;
 using Pathway.Core.Infrastructure;
 using Pathway.Core.Infrastructure.PerPathway.Server;
-using Pathway.Core.Abstract.Services;
 using Pathway.Core.Abstract.Repositories;
 using Pathway.Core.Repositories;
 
@@ -14,12 +12,10 @@ namespace Pathway.Core.Services
 {
     public class PvAlertService : IPvAlertService
     {
-        private readonly string _connectionString = "";
         private readonly long _intervalInSec;
 
-        public PvAlertService(string connectionString, long intervalInSec)
+        public PvAlertService(long intervalInSec)
         {
-            _connectionString = connectionString;
             _intervalInSec = intervalInSec;
         }
 
